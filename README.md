@@ -11,7 +11,7 @@ Trata-se de um sistema de gerenciamento de resíduos feito em C++
 
 
 ### Autores
-- @lucasxp205
+- Lucas Silva Chaves
 - Lucas Gonçalves Bispo
 - Pedro Herculano Flores
 
