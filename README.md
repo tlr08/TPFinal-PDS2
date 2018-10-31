@@ -23,3 +23,7 @@ Trata-se de um sistema de gerenciamento de resíduos feito em C++
 ------------------------
 - Como funcionalidade extra, temos como proposta a persistência dos dados inseridos pelo usuário num banco de dados relacional.
 - A escolha do SQLite como banco de dados, se dá pela facilidade em trabalhar com ele, pensando a tempo necessário para configuração e tamanho.
+
+
+### Observações
+* Feito com C++/11
