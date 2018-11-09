@@ -7,7 +7,7 @@ Trata-se de um sistema de gerenciamento de resíduos feito em C++
 -------
 - [ ] Criar Makefile
 - [ ] Desenvolver User Stories
-- [ ] Desenvolver Diagramas de Classe
+- [x] Desenvolver CRC
 - [ ] Desenvolver Planos de Testes
 - [ ] Bootstrap
 - [ ] Desenvolver Funcionalidade Extra
@@ -18,6 +18,7 @@ Trata-se de um sistema de gerenciamento de resíduos feito em C++
 - Lucas Silva Chaves
 - Lucas Gonçalves Bispo
 - Pedro Herculano Flores
+- Rayane Soares
 
 ### Funcionalidade Extra
 ------------------------
