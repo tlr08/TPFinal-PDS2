@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+**/**/*.gcno
+**/**/*.gcda
+
+**/**/*.o
+#Paths Excluded
+.vscode/
+bin/
+build/
