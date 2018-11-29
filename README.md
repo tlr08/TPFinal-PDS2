@@ -5,11 +5,11 @@ Trata-se de um sistema de gerenciamento de resíduos feito em C++
 
 ## TODO
 -------
-- [ ] Criar Makefile
-- [ ] Desenvolver User Stories
+- [x] Criar Makefile
+- [x] Desenvolver User Stories
 - [x] Desenvolver CRC
 - [ ] Desenvolver Planos de Testes
-- [ ] Bootstrap
+- [ ] Bootstrap no Projeto
 - [ ] Desenvolver Funcionalidade Extra
 
 
