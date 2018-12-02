@@ -1,14 +1,23 @@
 #include <iostream>
 #include "stdafx.hpp"
 #include "DbHelper.hpp"
+#include "MainController.hpp"
 using namespace std;
 
 
 int main(){
 	DbHelper *db; 	
+	MainController* controller;
+	
 	db = new DbHelper(DEFAULT_DBNAME);
+	controller = new MainController(db->getDatabase());
+	
 	db->startConnection();
-	cout << "Running db: " << db->getDbName() << endl;
+	controller->run();
 	db->closeConnection();
+	
+	delete db;
+	delete controller;
+	
 	return 0;
 }

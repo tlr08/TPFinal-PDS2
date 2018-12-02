@@ -1,19 +1,20 @@
 #ifndef USUARIO_HPP
 #define USUARIO_HPP
 #include "stdafx.hpp"
+using namespace std;
 
 
 class Usuario  {
     private:
         int id;
-        std::string nome;
-        std::string nomeUsuario;
-        std::string endereco;
-        std::string senha;
+        string nome;
+        string nomeUsuario;
+        string endereco;
+        string senha;
     public:
         ~Usuario();
         Usuario();
-        bool login(std::string nomeUsuario, std::string senha);
+        bool login(string nomeUsuario, string senha);
 
 };
 
