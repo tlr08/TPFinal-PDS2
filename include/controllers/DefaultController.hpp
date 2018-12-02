@@ -11,7 +11,7 @@ class DefaultController {
         virtual void run() = 0;
         DefaultController(sqlite3* db){
             this->data_set = new list<T*>();
-            this->db;
+            this->db = db;
         }
         ~DefaultController(){
             this->db = nullptr;
