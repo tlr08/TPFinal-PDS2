@@ -55,6 +55,7 @@ void ResiduosController::create(){
     }catch(exception e) {
         cout << e.what() << endl;
     }
+    residuo =  nullptr;
 }
 
 void ResiduosController::update(){
@@ -82,7 +83,7 @@ void ResiduosController::remove() {
 }
 
 void ResiduosController::list_all(){
-    list<Residuo*>::iterator it;
+    clearScreen();
     for(Residuo* residuo : *this->data_set){
         cout << *residuo;
     }
@@ -93,7 +94,7 @@ int ResiduosController::get_next_id(){
     int returnValue = 0;
     list<Residuo*>* data = this->data_set;
     if(!data->empty()){
-        returnValue =  (*data->end())->get_id();
+        returnValue =  (*(--data->end()))->get_id();
     }
 
     return ++returnValue;    

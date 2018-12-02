@@ -34,4 +34,5 @@ class Field {
 
 int clearScreen();
 void waitKey();
+void clearBuffer(std::istream& in);
 #endif

@@ -99,8 +99,9 @@ string Residuo::to_string(){
 ostream& operator<<(ostream& out, const Residuo& obj){
     out << "ID: " << obj.get_id() << endl;
     out << "Resíduo: " << obj.get_nome_residuo() << endl;
-    out << "Forma de Armazenamento: " << obj.get_nome_residuo() << endl;
+    out << "Forma de Armazenamento: " << obj.get_forma_armazenamento() << endl;
     out << "Tipo de Resíduo: " << tipo_to_string(obj.get_tipo_residuo())  << endl;
+    out << endl;
     return out;
 }
 
@@ -110,12 +111,14 @@ istream& operator>>(istream& in, Residuo& obj){
     string forma_armazenamento = "";
     int tipo_residuo = 0;
     
+    clearBuffer(in);
+    
     cout << "Informe o nome do resíduo: ";
-    in >> nome_residuo;
-
+    getline(in,nome_residuo,'\n');
+    
     cout << "Informe a forma de armazenamento: ";
-    in >> forma_armazenamento;
-
+    getline(in,forma_armazenamento,'\n');
+    
     cout << "Informe o Tipo de Resíduo:";
     in >> tipo_residuo;
 

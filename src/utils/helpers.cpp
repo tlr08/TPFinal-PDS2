@@ -53,7 +53,13 @@ int clearScreen(){
     return returnVal;
 }
 void waitKey(){
-    char x = '\0';
+    int returnCode = 0; 
     std::cout << "Pressione um botão para continuar \t";
-    std::cin >> x;
+    clearBuffer(std::cin);
+    returnCode = std::cin.get();
+}
+
+void clearBuffer(std::istream& in){
+    in.clear();
+    in.ignore(1);
 }
