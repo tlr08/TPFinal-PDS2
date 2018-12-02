@@ -10,7 +10,6 @@ TESTER := program/tester.cpp
 
 
 SRCEXT := cpp
-INCEXT := hpp
 
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 INCLUDES := $(addprefix -I ,$(addsuffix /,$(shell find $(INCDIR) -type d)))
@@ -27,7 +26,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 
 main: $(OBJECTS)
 	@mkdir -p $(BINDIR)
-	$(CC) $(CFLAGS) $(INC) $(MAIN) $^ -o $(BINDIR)/main
+	$(CC) $(CFLAGS) $(INC) $(MAIN) $^  -o $(BINDIR)/main -lsqlite3
 
 tests: $(OBJECTS)
 	@mkdir -p $(BINDIR)
