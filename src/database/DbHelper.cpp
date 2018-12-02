@@ -25,10 +25,18 @@ bool DbHelper::closeConnection(){
     return false;
 }
 
-bool DbHelper::startConnection(){
+bool DbHelper:: startConnection(){
     
-    if (this->dbName.empty){
+    if (this->dbName.empty()){
         return false;   
     }
     return !sqlite3_open(this->dbName.c_str(), &this->dbFile);
+}
+
+
+int DbHelper::getMigration(){
+    if(this->dbFile!=nullptr){
+        std::string sql = "select migration_id from migration";
+        int rc = 0;
+    }
 }
