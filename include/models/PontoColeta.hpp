@@ -1,6 +1,6 @@
 #ifndef PONTOCOLETA_H
 #define PONTOCOLETA_H
-#include "Usuario.h"
+#include "Usuario.hpp"
 #include <string>
 using namespace std;
 
