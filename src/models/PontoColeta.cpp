@@ -1,4 +1,4 @@
-#include "PontoColeta.h"
+#include "PontoColeta.hpp"
 #include <iostream>
         PontoColeta::PontoColeta()
         {
@@ -54,7 +54,7 @@
          ostream& operator<<(ostream& out,const PontoColeta& obj)
         {
             out << "Nome: " << obj.get_nome() << endl;
-           // out << "Usuário: " << (obj.get_usuario())->get_nome_usuario << endl;
+           // out << "Usuï¿½rio: " << (obj.get_usuario())->get_nome_usuario << endl;
             out << "Endereco: " << obj.get_endereco() << endl;
             out << endl;
             return out;
@@ -74,7 +74,7 @@
          /*   cout << "Informe o usuario: ";
             getline(in,nome,'\n');*/
 
-            cout << "Informe o endereço: ";
+            cout << "Informe o endereï¿½o: ";
             getline(in,endereco,'\n');
 
 
