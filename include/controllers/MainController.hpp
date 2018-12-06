@@ -3,6 +3,7 @@
 #include "stdafx.hpp"
 #include "sqlite3.h"
 #include "ResiduosController.hpp"
+#include "UsuarioController.hpp"
 
 using namespace std;
 
@@ -15,6 +16,8 @@ class MainController{
         int showView();
         sqlite3* db;
         ResiduosController* residuos;
+        UsuarioController* usuarios;
+        
 };
 
 #endif
