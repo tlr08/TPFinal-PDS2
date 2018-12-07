@@ -8,6 +8,7 @@ MainController::MainController(sqlite3* db){
     this->residuos = new ResiduosController(db);
     this->usuario = new UsuarioController(db);
     this->local = new PontoColetaController(db);
+    this->agendamento = new AgendamentoController(db);
 }
 
 void MainController::run(){
@@ -27,6 +28,7 @@ void MainController::run(){
                 this->local->run();
                 break;
             case 4:
+                this->agendamento->run();
                 break;
         }
 

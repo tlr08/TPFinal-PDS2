@@ -5,6 +5,7 @@
 #include "ResiduosController.hpp"
 #include "UsuarioController.hpp"
 #include "PontoColetaController.hpp"
+#include "AgendamentoController.hpp"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ class MainController{
         ResiduosController* residuos;
         UsuarioController*  usuario;
         PontoColetaController* local;
+        AgendamentoController* agendamento;
 };
 
 #endif
