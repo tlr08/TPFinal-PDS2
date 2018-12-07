@@ -6,6 +6,8 @@ using namespace std;
 MainController::MainController(sqlite3* db){
     this->db = db;
     this->residuos = new ResiduosController(db);
+    this->usuario = new UsuarioController(db);
+    this->local = new PontoColetaController(db);
 }
 
 void MainController::run(){
@@ -19,8 +21,10 @@ void MainController::run(){
                 this->residuos->run();
                 break;
             case 2:
+                this->usuario->run();
                 break;
             case 3:
+                this->local->run();
                 break;
             case 4:
                 break;
