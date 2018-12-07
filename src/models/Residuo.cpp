@@ -33,11 +33,14 @@ Residuo::Residuo(){
     this->id = 0;
     this->nome_residuo = "";
     this->tipo_residuo = SOLIDO;
+    this->Unidade = "";
+    this->Quantidade = 0;
 }
 
 Residuo::~Residuo(){
     this->nome_residuo.clear();
     this->forma_armazenamento.clear();
+    this->Unidade.clear();
 }
 
 Residuo::Residuo(int id, string nome_residuo,string forma_armazenamento,TipoResiduo tipo_residuo,double Quantidade,string Unidade){
@@ -93,7 +96,7 @@ bool Residuo::set_Unidade(string Unidade){
     return false;
 }
 bool Residuo::set_Quantidade(double qtd){
-    if(qtd != 0){
+    if(!(qtd == 0)){
         this->Quantidade = qtd;
         return true;
     }
@@ -119,7 +122,7 @@ ostream& operator<<(ostream& out, const Residuo& obj){
     out << "ID: " << obj.get_id() << endl;
     out << "Resíduo: " << obj.get_nome_residuo() << endl;
     out << "Forma de Armazenamento: " << obj.get_forma_armazenamento() << endl;
- //   out << "Tipo de Resíduo: " << tipo_to_string(obj.get_tipo_residuo())  << endl;
+    out << "Tipo de Resíduo: " << tipo_to_string(obj.get_tipo_residuo())  << endl;
     out << "Quantidade: " << obj.get_Quantidade() << obj.get_Unidade() << endl;
     out << endl;
     return out;
@@ -133,7 +136,7 @@ istream& operator>>(istream& in, Residuo& obj){
     double quantidade = 0;
     int tipo_residuo = 0;
 
-//    clearBuffer(in);
+   clearBuffer(in);
 
     cout << "Informe o nome do resíduo: ";
     getline(in,nome_residuo,'\n');
@@ -156,6 +159,7 @@ istream& operator>>(istream& in, Residuo& obj){
     obj.set_tipo_residuo(int_to_tipo(tipo_residuo));
     obj.set_Quantidade(quantidade);
     obj.set_Unidade(unidade);
-
+    
+    cout << endl;
     return in;
 }
