@@ -1,45 +1,56 @@
 #include "helpers.hpp"
 
-double Field::getDouble(){
-    if(this->getType() == t_double){
-        return this->fieldData->data.double_value;
+double getDouble(variant* data){
+    if(data->variantType == t_double){
+        return data->data.double_value;
     } else { 
         return 0;
     }
 
 }
 
-int Field::getInt(){
-    if(this->getType() == t_int){
-        return this->fieldData->data.int_value;
+int getInt(variant* data){
+    if(data->variantType == t_int){
+        return data->data.int_value;
     } else { 
-        return 0;
+        return -1;
     }
 }
 
-std::string Field::getString(){
-    if(this->getType() == t_string){
-        std::string toCopy =  this->fieldData->data.string_value;
+std::string getString(variant* data){
+    if(data->variantType == t_string){
+        std::string toCopy =  data->data.string_value;
         int strSize = toCopy.length();
         std::string returnStr(toCopy, 0,strSize);
-        
         return returnStr;
     } else {
         return "";
     }
 }
 
-Field::~Field(){
+variant* getVariant(int value){
+    variant* data = new variant {
+        {.int_value=value},
+        t_int
+    };
+    return data;
+}
+variant* getVariant(double value){
+    variant* data = new variant {
+        {.double_value=value},
+        t_double
+    };
+   return data;
+}
+variant* getVariant(std::string value){
+    variant* data = new variant {
+        {.string_value=value},
+        t_string
+    };
+    return data;
 }
 
-Field::Field(std::string fieldName, t_variant *data){
-    this->fieldData = data;
-    
-}
 
-dataTypes Field::getType(){
-    return this->fieldData->variantType;
-}
 
 int clearScreen(){
     int returnVal = 0;
