@@ -5,13 +5,14 @@
             _nome = "";
             _endereco = "";
             _id = 0;
-            //Usuario *_User;
+            _id_usuario = 0;
         }
-        PontoColeta::PontoColeta(int id, string nome,string endereco /*,Usuario *User*/)
+        PontoColeta::PontoColeta(int id, string nome,string endereco, int idUsuario)
         {   _id = id;
             _nome = nome;
             _endereco = endereco;
-          //  _User = User;
+            _id_usuario = idUsuario;
+
         }
         string PontoColeta::get_nome() const
         {
@@ -24,10 +25,19 @@
         int PontoColeta::get_id() const{
             return this->_id;
         }
-      /*  Usuario* PontoColeta::get_usuario()
+        int PontoColeta::get_id_usuario() const
         {
-           return *_User;
-        }*/
+            return this->_id_usuario;
+        }
+        bool PontoColeta::set_id_Usuario(int idUsuario)
+        {
+            if(!(idUsuario == 0)){
+            this->_id_usuario = idUsuario;
+            return true;
+            }  
+            return false;
+        }
+      
         bool PontoColeta::set_nome(string nome)
         {
             if(!nome.empty()){
@@ -53,10 +63,6 @@
             }
             return false;
         }
-       /* bool PontoColeta::set_Usuario(Usuario User);
-        {
-
-        }*/
 
         PontoColeta::~PontoColeta()
         {
@@ -68,7 +74,6 @@
         {
             out << "ID: " << obj.get_id() << endl;
             out << "Nome: " << obj.get_nome() << endl;
-           // out << "Usu�rio: " << (obj.get_usuario())->get_nome_usuario << endl;
             out << "Endereco: " << obj.get_endereco() << endl;
             out << endl;
             return out;
@@ -77,6 +82,7 @@
         {
             string nome = "";
             string endereco = "";
+            int idUser = 0;
 
 
             clearBuffer(in);
@@ -85,15 +91,15 @@
             cout << "Informe o nome do Local: ";
             getline(in,nome,'\n');
 
-         /*   cout << "Informe o usuario: ";
-            getline(in,nome,'\n');*/
-
-            cout << "Informe o endere�o: ";
+            cout << "Informe o endereço: ";
             getline(in,endereco,'\n');
+            
+            cout << "Informe o ID do usuario dono do Local: ";
+            in >> idUser;
 
 
             obj.set_nome(nome);
-           // obj.set_usuario(nome_usuario);
+            obj.set_id_Usuario(idUser);
             obj.set_endereco(endereco);
             cout << endl;
             return in;

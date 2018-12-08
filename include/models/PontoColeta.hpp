@@ -8,15 +8,15 @@ class PontoColeta
 {
     public:
         PontoColeta();
-        PontoColeta(int id,string nome,string endereco /*Usuario *User*/);
+        PontoColeta(int id,string nome,string endereco,int idUsuario);
         string get_nome() const;
         string get_endereco() const;
-        //Usuario* get_usuario();
+        int get_id_usuario() const;
         bool set_nome(string nome);
         bool set_endereco(string endereco);
         int get_id() const;
         bool set_id(int id);
-     //   bool set_Usuario(Usuario *User);
+        bool set_id_Usuario(int idUsuario);
         ~PontoColeta();
         friend ostream& operator<<(ostream& out,const PontoColeta& obj);
         friend istream& operator>>(istream& in,PontoColeta& obj);
@@ -25,8 +25,8 @@ class PontoColeta
 
     private:
         string _nome, _endereco;
-        int _id;
-     //   Usuario *_User;
+        int _id,_id_usuario;
+
 
 };
 
