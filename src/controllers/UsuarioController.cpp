@@ -29,6 +29,7 @@ void UsuarioController::run()
         }
 
     } while (continueRunning);
+    delete dao;
     dao = nullptr;
 }
 
@@ -92,31 +93,41 @@ void UsuarioController::update()
 {
     Usuario *update = nullptr;
     int id = 0;
+    bool result = false;
     cout << "Informe o Id do Usuário a ser alterado: ";
     cin >> id;
     update = dao->find(id);
-    
+
     if (update != nullptr)
     {
         if (PessoaFisica *pessoaFisica = dynamic_cast<PessoaFisica *>(update))
         {
-            cout << "\tDados do Usuário" << endl << *pessoaFisica << endl
+            cout << "\tDados do Usuário" << endl
+                 << *pessoaFisica << endl
                  << "\tAtualização" << endl;
             cin >> *pessoaFisica;
-            dao->update(pessoaFisica);
+            result = dao->update(pessoaFisica);
         }
         else if (PessoaJuridica *pessoaJuridica = dynamic_cast<PessoaJuridica *>(update))
         {
-            cout << "\tDados do Usuário" << endl << *pessoaJuridica << endl
+            cout << "\tDados do Usuário" << endl
+                 << *pessoaJuridica << endl
                  << "\tAtualização" << endl;
             cin >> *pessoaJuridica;
-            dao->update(pessoaJuridica);
+            result = dao->update(pessoaJuridica);
         }
-        cout << "Usuário alterado com sucesso." << endl;
+        if (update)
+        {
+            cout << "Usuário alterado com sucesso." << endl;
+        }
+        else
+        {
+            cout << "Falha ao alterar o usuário." << endl;
+        }
     }
     else
     {
-        cout << "Falha ao alterar o usuário." << endl;
+        cout << "Usuário não encontrado." << endl;
     }
     waitKey();
 }
@@ -130,6 +141,7 @@ void UsuarioController::show()
     if (usuario != NULL)
     {
         clearScreen();
+        cout << "\tDados do Usuário" << endl << endl;
         if (PessoaFisica *pessoaFisica = dynamic_cast<PessoaFisica *>(usuario))
         {
             cout << *pessoaFisica;
@@ -140,9 +152,10 @@ void UsuarioController::show()
         }
         waitKey();
         return;
+    }else{
+        cout << "Usuário não encontrado." << endl;
     }
 
-    cout << "Usuário não encontrado." << endl;
     waitKey();
 }
 
@@ -164,8 +177,9 @@ void UsuarioController::remove()
 void UsuarioController::list_all()
 {
     clearScreen();
+    cout << "\tUsuários cadastrados" << endl;
     for (Usuario *usuario : *dao->list_all())
-    {   
+    {
         if (PessoaFisica *pessoaFisica = dynamic_cast<PessoaFisica *>(usuario))
         {
             cout << *pessoaFisica;
@@ -181,5 +195,5 @@ void UsuarioController::list_all()
 //REMOVER METODO
 int UsuarioController::get_next_id()
 {
-   return 0;
+    return 0;
 }

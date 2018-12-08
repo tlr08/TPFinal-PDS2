@@ -4,6 +4,9 @@ UsuarioDAO::UsuarioDAO(DbHelper *helper)
 {
     this->helper = helper;
 }
+UsuarioDAO::~UsuarioDAO(){
+    
+}
 
 bool UsuarioDAO::create(Usuario *obj)
 {
@@ -35,7 +38,7 @@ bool UsuarioDAO::create(Usuario *obj)
     }
     params->clear();
     delete params;
-    return rc == SQLITE_ROW;
+    return rc == SQLITE_DONE;
 }
 bool UsuarioDAO::update(Usuario *obj)
 {
@@ -69,7 +72,7 @@ bool UsuarioDAO::update(Usuario *obj)
     params->clear();
     delete params;
 
-    return sqlite3_step(stmt) == SQLITE_ROW;
+    return sqlite3_step(stmt) == SQLITE_DONE;
 }
 std::list<Usuario *> *UsuarioDAO::list_all()
 {
@@ -122,7 +125,7 @@ bool UsuarioDAO::remove(int id)
     const char *sql = "DELETE FROM USUARIO WHERE ID = ?";
     sqlite3_prepare_v2(helper->getDatabase(), sql, strlen(sql), &stmt, NULL);
     sqlite3_bind_int(stmt, 1, id);
-    return sqlite3_step(stmt) == SQLITE_ROW;
+    return sqlite3_step(stmt) == SQLITE_DONE;
 }
 bool UsuarioDAO::remove(Usuario *obj)
 {
