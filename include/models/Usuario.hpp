@@ -12,22 +12,23 @@ class Usuario  {
         string nome;
         string nome_usuario;
         string endereco;
-        virtual string get_senha() const;
+        
     public:
         ~Usuario();
         Usuario();
         Usuario(int id, string nome, string nome_usuario, string endereco, string senha);
         virtual bool valida_dados() = 0;
-        virtual bool login(string nome_usuario, string senha);
-        virtual int get_id() const;
-        virtual string get_nome() const;
-        virtual string get_nome_usuario() const;
-        virtual string get_endereco() const;
-
+        bool login(string nome_usuario, string senha);
+        int get_id() const;
+        string get_nome() const;
+        string get_nome_usuario() const;
+        string get_endereco() const;
+        string get_senha() const;
         bool set_nome(string nome);
         bool set_nome_usuario(string nome_usuario);
         bool set_endereco(string endereco);
         bool set_id(int id);
+        bool set_senha(string senha);
 
 };
 

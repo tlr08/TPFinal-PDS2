@@ -17,10 +17,10 @@ class IModelDAO{
     public:
         virtual bool create(T* obj) = 0;
         virtual bool update(T* obj) = 0;
-        virtual std::list<T> ListAll() = 0;
-        virtual T find(long id) = 0;
-        virtual bool remove(long id) = 0;
-        virtual bool remove(T obj) = 0;
+        virtual std::list<T*>* list_all() = 0;
+        virtual T* find(int id) = 0;
+        virtual bool remove(int id) = 0;
+        virtual bool remove(T* obj) = 0;
 
 
 };

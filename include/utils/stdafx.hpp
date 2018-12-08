@@ -5,3 +5,4 @@
 #include <exception>
 #include "constants.hpp"
 #include "helpers.hpp"
+#include <cstring>

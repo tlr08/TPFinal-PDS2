@@ -1,9 +1,6 @@
 #include "Usuario.hpp"
 
 bool Usuario::login(std::string nome_usuario, std::string senha){
-    if(this->nome_usuario.compare(nome_usuario) == 0)
-        if(this->senha.compare(senha) == 0)
-            return true;
     return false;
 }
 
@@ -73,6 +70,14 @@ bool Usuario::set_nome(string nome){
 bool Usuario::set_id(int id){
     if(id>0){
         this->id = id;
+        return true;
+    }
+    return false;
+}
+
+bool Usuario::set_senha(string senha){
+    if(!senha.empty()){
+        this->senha = senha;
         return true;
     }
     return false;

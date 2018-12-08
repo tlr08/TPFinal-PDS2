@@ -2,9 +2,7 @@
 #define USUARIO_CONTROLLER_H
 #include "stdafx.hpp"
 #include "DefaultController.hpp"
-#include "Usuario.hpp"
-#include "PessoaFisica.hpp"
-#include "PessoaJuridica.hpp"
+#include "UsuarioDAO.hpp"
 
 using namespace std;
 class UsuarioController : public DefaultController<Usuario>{
@@ -12,6 +10,7 @@ class UsuarioController : public DefaultController<Usuario>{
         void run();
         using DefaultController<Usuario>::DefaultController;
     private:
+        UsuarioDAO* dao;
         int get_view();
         void create();
         void list_all();

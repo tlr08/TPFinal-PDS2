@@ -1,11 +1,21 @@
 #ifndef DBHELPER_H
 #define DBHELPER_H
-#include <string>
+#include "stdafx.hpp"
 #include "sqlite3.h"
-#include "helpers.hpp"
 //Classe para auxilar no gerenciamento do Banco de Dados 
 //Implementar métodos de exclusão, atualização e inserção.
 //Criar métodos para carregar o banco.
+
+typedef struct struct_field {
+    variant* data;
+    std::string name;
+} Field;
+
+typedef struct struct_row {
+    std::list<Field*>* fields;
+} Row;
+
+Field* getField(variant* data, std::string name);
 
 class DbHelper {
     private:
@@ -19,8 +29,12 @@ class DbHelper {
         bool closeConnection();
         std::string getDbName();
         sqlite3* getDatabase();
-        bool up();
+        void up();
         int getMigration();
+        int prepareStatementSQL(const char* sql, std::list<variant*>* params, sqlite3_stmt** statement);
+        std::list<Row*>* read(const char* sql, std::list<variant*>* params);
+
+        bool runSql(std::string sql);
 };
 
 #endif

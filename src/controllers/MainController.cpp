@@ -3,12 +3,12 @@
 using namespace std;
 
 
-MainController::MainController(sqlite3* db){
-    this->db = db;
-    this->residuos = new ResiduosController(db);
-    this->usuario = new UsuarioController(db);
-    this->local = new PontoColetaController(db);
-    this->agendamento = new AgendamentoController(db);
+MainController::MainController(DbHelper* helper){
+    this->helper =  helper;
+    this->residuos = new ResiduosController(helper);
+    this->usuario = new UsuarioController(helper);
+    this->local = new PontoColetaController(helper);
+    this->agendamento = new AgendamentoController(helper);
 }
 
 void MainController::run(){
