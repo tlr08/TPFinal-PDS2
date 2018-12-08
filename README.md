@@ -8,8 +8,10 @@ Trata-se de um sistema de gerenciamento de resíduos feito em C++
 - [x] Criar Makefile
 - [x] Desenvolver User Stories
 - [x] Desenvolver CRC
-- [ ] Desenvolver Planos de Testes
-- [ ] Bootstrap no Projeto
+- [ ] Desenvolver Testes
+- [x] Bootstrap no Projeto
+- [ ] Desenvolver Agendamento das Coletas
+- [ ] Desenvolver Pontos de Coletas
 - [ ] Desenvolver Funcionalidade Extra
 
 
