@@ -1,13 +1,14 @@
-#include "PontoColeta.h"
+#include "PontoColeta.hpp"
 #include <iostream>
         PontoColeta::PontoColeta()
         {
             _nome = "";
             _endereco = "";
+            _id = 0;
             //Usuario *_User;
         }
-        PontoColeta::PontoColeta(string nome,string endereco /*Usuario *User*/)
-        {
+        PontoColeta::PontoColeta(int id, string nome,string endereco /*,Usuario *User*/)
+        {   _id = id;
             _nome = nome;
             _endereco = endereco;
           //  _User = User;
@@ -19,6 +20,9 @@
         string PontoColeta::get_endereco() const
         {
             return this->_endereco;
+        }
+        int PontoColeta::get_id() const{
+            return this->_id;
         }
       /*  Usuario* PontoColeta::get_usuario()
         {
@@ -40,6 +44,15 @@
             }
             return false;
         }
+        bool PontoColeta::set_id(int id)
+        {
+            if(id>0)
+            {
+                this->_id = id;
+                return true;
+            }
+            return false;
+        }
        /* bool PontoColeta::set_Usuario(Usuario User);
         {
 
@@ -53,8 +66,9 @@
 
          ostream& operator<<(ostream& out,const PontoColeta& obj)
         {
+            out << "ID: " << obj.get_id() << endl;
             out << "Nome: " << obj.get_nome() << endl;
-           // out << "Usuário: " << (obj.get_usuario())->get_nome_usuario << endl;
+           // out << "Usuï¿½rio: " << (obj.get_usuario())->get_nome_usuario << endl;
             out << "Endereco: " << obj.get_endereco() << endl;
             out << endl;
             return out;
@@ -74,13 +88,13 @@
          /*   cout << "Informe o usuario: ";
             getline(in,nome,'\n');*/
 
-            cout << "Informe o endereço: ";
+            cout << "Informe o endereï¿½o: ";
             getline(in,endereco,'\n');
 
 
             obj.set_nome(nome);
            // obj.set_usuario(nome_usuario);
             obj.set_endereco(endereco);
-
+            cout << endl;
             return in;
         }

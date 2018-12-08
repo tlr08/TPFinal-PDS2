@@ -52,5 +52,7 @@ istream& operator>>(istream& in, PessoaFisica& obj){
     obj.set_cpf(cpf);
     obj.set_endereco(endereco);
     
+    cout << endl;
+    
     return in;
 }

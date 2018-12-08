@@ -4,6 +4,8 @@
 #include "sqlite3.h"
 #include "ResiduosController.hpp"
 #include "UsuarioController.hpp"
+#include "PontoColetaController.hpp"
+#include "AgendamentoController.hpp"
 
 using namespace std;
 
@@ -16,8 +18,9 @@ class MainController{
         int showView();
         sqlite3* db;
         ResiduosController* residuos;
-        UsuarioController* usuarios;
-        
+        UsuarioController*  usuario;
+        PontoColetaController* local;
+        AgendamentoController* agendamento;
 };
 
 #endif

@@ -51,6 +51,6 @@ istream& operator>>(istream& in, PessoaJuridica& obj){
     obj.set_nome_usuario(nome_usuario);
     obj.set_cnpj(cnpj);
     obj.set_endereco(endereco);
-    
+    cout << endl;
     return in;
 }
