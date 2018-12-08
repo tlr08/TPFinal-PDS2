@@ -30,6 +30,7 @@ class DbHelper {
         std::string getDbName();
         sqlite3* getDatabase();
         void up();
+        void down();
         int getMigration();
         int prepareStatementSQL(const char* sql, std::list<variant*>* params, sqlite3_stmt** statement);
         std::list<Row*>* read(const char* sql, std::list<variant*>* params);
