@@ -1,6 +1,17 @@
 #include "Residuo.hpp"
 
-
+int tipo_to_int(TipoResiduo tipo){
+    switch(tipo){
+        case LIQUIDO:
+            return 0;
+        case SOLIDO:
+            return 1;
+        case ORGANICO:
+            return 2;
+        default:
+            return 0;
+    }
+}
 string tipo_to_string(TipoResiduo tipo){
     switch(tipo){
         case LIQUIDO:
@@ -68,6 +79,7 @@ string Residuo::get_Unidade() const{
 TipoResiduo Residuo::get_tipo_residuo() const{
     return this->tipo_residuo;
 }
+
 
 string Residuo::get_forma_armazenamento() const{
     return this->forma_armazenamento;

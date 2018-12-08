@@ -21,7 +21,7 @@ class IModelDAO{
         virtual T* find(int id) = 0;
         virtual bool remove(int id) = 0;
         virtual bool remove(T* obj) = 0;
-
+        ~IModelDAO() {}
 
 };
 

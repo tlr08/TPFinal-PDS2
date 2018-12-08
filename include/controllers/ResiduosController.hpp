@@ -2,7 +2,7 @@
 #define RESIDUOS_CONTROLLER_H
 #include "stdafx.hpp"
 #include "DefaultController.hpp"
-#include "Residuo.hpp"
+#include "ResiduosDAO.hpp"
 
 using namespace std;
 class ResiduosController : public DefaultController<Residuo>{
@@ -10,6 +10,7 @@ class ResiduosController : public DefaultController<Residuo>{
         void run();
         using DefaultController<Residuo>::DefaultController;
     private:
+        ResiduosDAO *dao;
         int get_view();
         void create();
         void list_all();

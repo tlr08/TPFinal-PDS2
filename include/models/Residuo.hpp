@@ -12,6 +12,7 @@ enum TipoResiduo {
 
 string tipo_to_string(TipoResiduo tipo);
 TipoResiduo int_to_tipo(int value);
+int tipo_to_int(TipoResiduo tipo);
 class Residuo  {
     private:
         int id;
