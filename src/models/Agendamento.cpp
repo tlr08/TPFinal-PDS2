@@ -8,9 +8,10 @@ Agendamento::Agendamento()
     _id_doador = 0;
     _id_receptor = 0;
     _id_residuo = 0;
+    _id_Ponto_coleta = 0;
 }
 
-Agendamento::Agendamento(int id,string dataAgendada,string HoraAgendada,int id_doador,int id_receptor,int id_residuo)
+Agendamento::Agendamento(int id,string dataAgendada,string HoraAgendada,int id_doador,int id_receptor,int id_residuo,int id_PontoColeta)
 {
     _data_Agendada = dataAgendada;
     _horario_Agendado = HoraAgendada;
@@ -18,6 +19,7 @@ Agendamento::Agendamento(int id,string dataAgendada,string HoraAgendada,int id_d
     _id_doador = id_doador;
     _id_receptor = id_receptor;
     _id_residuo = id_residuo;
+    _id_Ponto_coleta = id_PontoColeta;
 }
 string Agendamento::get_dataAgendada() const
 {
@@ -60,6 +62,9 @@ int Agendamento::get_id_Residuo() const
 {
     return this->_id_residuo;
 }
+int Agendamento::get_id_Ponto_coleta() const{
+    return this->_id_Ponto_coleta;
+}
 bool Agendamento::set_id(int id)
 {
     if(!(id == 0)){
@@ -92,22 +97,28 @@ bool Agendamento::set_id_Residuos(int idResiduos)
     }
     return false;
 }
-
-ostream& operator<<(ostream& out,const Agendamento& obj)
-        {
-            out << "ID: " << obj.get_id() << endl;
-            out << "Data: " << obj.get_dataAgendada() << endl;
-            out << "Hora: " << obj.get_HoraAgendada() << endl;
-            out << endl;
-            return out;
-        }
-istream& operator>>(istream& in,Agendamento& obj)
-        {
+bool Agendamento::set_id_Ponto_coleta(int idPontoColeta)
+{
+    if(!(idPontoColeta == 0)){
+        this->_id_Ponto_coleta = idPontoColeta;
+        return true;
+    }
+    return false;
+}
+ostream& operator<<(ostream& out,const Agendamento& obj){
+        out << "ID: " << obj.get_id() << endl;
+        out << "Data: " << obj.get_dataAgendada() << endl;
+        out << "Hora: " << obj.get_HoraAgendada() << endl;
+        out << endl;
+        return out;
+}
+istream& operator>>(istream& in,Agendamento& obj){
             string dataAgendada = "";
             string HoraAgendada = "";
             int idDoador = 0;
             int idReceptor = 0;
             int idResiduos = 0;
+            int idPontoColeta = 0;
 
 
 
@@ -129,6 +140,10 @@ istream& operator>>(istream& in,Agendamento& obj)
             cout << "Informe o ID do Residuo: ";
             in >> idResiduos;
 
+            cout << "Informe o ID do Ponto de Coleta";
+            in >> idPontoColeta;
+
+            obj.set_id_Ponto_coleta(idPontoColeta);
             obj.set_dataAgendada(dataAgendada);
             obj.set_HoraAgendada(HoraAgendada);
             obj.set_id_Doador(idDoador);
