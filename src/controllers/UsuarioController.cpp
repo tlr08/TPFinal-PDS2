@@ -92,24 +92,31 @@ void UsuarioController::update()
 {
     Usuario *update = nullptr;
     int id = 0;
-    cout << "Informe o Id do Usuário a ser alterado.";
+    cout << "Informe o Id do Usuário a ser alterado: ";
     cin >> id;
     update = dao->find(id);
+    
     if (update != nullptr)
     {
         if (PessoaFisica *pessoaFisica = dynamic_cast<PessoaFisica *>(update))
         {
+            cout << "\tDados do Usuário" << endl << *pessoaFisica << endl
+                 << "\tAtualização" << endl;
             cin >> *pessoaFisica;
+            dao->update(pessoaFisica);
         }
         else if (PessoaJuridica *pessoaJuridica = dynamic_cast<PessoaJuridica *>(update))
         {
+            cout << "\tDados do Usuário" << endl << *pessoaJuridica << endl
+                 << "\tAtualização" << endl;
             cin >> *pessoaJuridica;
+            dao->update(pessoaJuridica);
         }
-        cout << "Usuário alterado com sucesso.";
+        cout << "Usuário alterado com sucesso." << endl;
     }
     else
     {
-        cout << "Falha ao alterar o usuário.";
+        cout << "Falha ao alterar o usuário." << endl;
     }
     waitKey();
 }
