@@ -46,4 +46,6 @@ coverage:
 clean:
 	$(RM) -r $(OBJDIR)/* $(BINDIR)/* coverage/* *.gcda *.gcno
 
+run:
+	./$(BINDIR)/main
 .PHONY: clean coverage
