@@ -31,7 +31,7 @@ main: $(OBJECTS)
 tests: $(OBJECTS)
 	@mkdir -p $(BINDIR)
 	$(CC) $(CFLAGS) $(INC) $(TESTER) $(TSTSOURCES) $^ -o $(BINDIR)/tester
-	$(BINDIR)/tester
+	$(BINDIR)/tester -lsqlite3
 
 all: main
 
@@ -46,6 +46,4 @@ coverage:
 clean:
 	$(RM) -r $(OBJDIR)/* $(BINDIR)/* coverage/* *.gcda *.gcno
 
-run:
-	./$(BINDIR)/main
 .PHONY: clean coverage
