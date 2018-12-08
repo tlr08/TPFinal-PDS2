@@ -68,7 +68,6 @@ void UsuarioController::create()
     {
         usuario = new PessoaJuridica();
     }
-    usuario->set_id(this->get_next_id());
     try
     {
         if (PessoaFisica *pessoaFisica = dynamic_cast<PessoaFisica *>(usuario))
@@ -146,15 +145,7 @@ void UsuarioController::remove()
     bool removed = false;
     cin >> id;
 
-    for (Usuario *usuario : *this->data_set)
-    {
-        if (usuario->get_id() == id)
-        {
-            this->data_set->remove(usuario);
-            removed = true;
-            break;
-        }
-    }
+    removed = dao->remove(id);
     if (!removed)
         cout << "Não foi possível remover o usuário selecionado." << endl;
     else
@@ -180,14 +171,8 @@ void UsuarioController::list_all()
     waitKey();
 }
 
+//REMOVER METODO
 int UsuarioController::get_next_id()
 {
-    int returnValue = 0;
-    list<Usuario *> *data = this->data_set;
-    if (!data->empty())
-    {
-        returnValue = (*(--data->end()))->get_id();
-    }
-
-    return ++returnValue;
+   return 0;
 }
