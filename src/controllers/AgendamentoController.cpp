@@ -23,6 +23,9 @@ void AgendamentoController::run(){
             case 5:
                 this->show();
                 break;
+            case 6:
+                this->residuos();
+                break;
         }
 
     } while(continueRunning);
@@ -31,7 +34,7 @@ void AgendamentoController::run(){
 
 int AgendamentoController::get_view(){
     int returnValue = -1;
-    while(returnValue < 0 || returnValue > 5){
+    while(returnValue < 0 || returnValue > 6){
         clearScreen();
         cout << "Gerenciamento dos Agendamentos" << endl;
         cout << "1 - Agendar" << endl;
@@ -39,6 +42,7 @@ int AgendamentoController::get_view(){
         cout << "3 - Listar Agendamentos" << endl;
         cout << "4 - Cancelar Agendamento" << endl;
         cout << "5 - Detalhar Agendamentos" << endl;
+        cout << "6 - Adicionar/Remover resíduos do Agendamento" << endl;
         cout << "0 - Sair" << endl;
         cout << endl << "Selecione uma opção: ";
         cin >> returnValue;
@@ -108,6 +112,38 @@ void AgendamentoController::list_all(){
         cout << *agendamento;
     }
     waitKey(); 
+}
+void AgendamentoController::residuos(){
+    int id = 0;
+    int adicionador = 0;
+    cout << "Informe o ID do Agendamento a ser alterado: ";
+    cin >> id;
+
+    for(Agendamento* x : *this->data_set){
+        if(x->get_id() == id){
+            cout << "1 - Adicionar Resíduo | 0 - Remover Resíduos : ";
+            cin >> adicionador;
+            if(adicionador == 0)
+            {
+                int idRemove = 0;
+                cout << "Qual o ID do Resíduo a ser removido: ";
+                cin >> idRemove;
+                x->remove_residuos(idRemove);
+            }
+            else{
+                int idAdd = 0;
+                cout << "Qual o ID do Resíduo a ser adicionado: ";
+                cin >> idAdd;
+                x->add_residuos(idAdd);
+            }
+        }
+        else
+            cout << "Agendamento não encontrado! ";
+   
+
+    waitKey();
+
+    }
 }
 
 int AgendamentoController::get_next_id(){

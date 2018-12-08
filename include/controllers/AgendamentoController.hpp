@@ -17,6 +17,7 @@ class AgendamentoController : public DefaultController<Agendamento>{
         void remove();
         void show(); 
         int get_next_id();
+        void residuos();
 };
 
 #endif

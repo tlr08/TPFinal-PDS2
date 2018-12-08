@@ -30,7 +30,7 @@ Agendamento::Agendamento()
     _ID = 0;
     _id_doador = 0;
     _id_receptor = 0;
-    _id_residuo = 0;
+    set_id_Residuos(0);
     _id_Ponto_coleta = 0;
     coletado = NAO_REALIZADO;
 }
@@ -42,7 +42,7 @@ Agendamento::Agendamento(int id,string dataAgendada,string HoraAgendada,int id_d
     _ID = id;
     _id_doador = id_doador;
     _id_receptor = id_receptor;
-    _id_residuo = id_residuo;
+    set_id_Residuos(id_residuo);
     _id_Ponto_coleta = id_PontoColeta;
     coletado = NAO_REALIZADO;
 }
@@ -83,9 +83,9 @@ int Agendamento::get_id_Receptor() const
 {
     return this->_id_receptor;
 }
-int Agendamento::get_id_Residuo() const
+std::vector<int>::iterator Agendamento::get_id_Residuo() 
 {
-    return this->_id_residuo;
+    return _id_residuos.begin();
 }
 int Agendamento::get_id_Ponto_coleta() const{
     return this->_id_Ponto_coleta;
@@ -117,7 +117,7 @@ bool Agendamento::set_id_Receptor(int idReceptor)
 bool Agendamento::set_id_Residuos(int idResiduos)
 {
      if(!(idResiduos == 0)){
-        this->_id_residuo = idResiduos;
+        _id_residuos.push_back(idResiduos);
         return true;
     }
     return false;
@@ -174,6 +174,7 @@ istream& operator>>(istream& in,Agendamento& obj){
 
             cout << "Informe o ID do Residuo: ";
             in >> idResiduos;
+            obj.set_id_Residuos(idResiduos);
 
             cout << "Informe o ID do Ponto de Coleta: ";
             in >> idPontoColeta;
@@ -187,9 +188,35 @@ istream& operator>>(istream& in,Agendamento& obj){
             obj.set_HoraAgendada(HoraAgendada);
             obj.set_id_Doador(idDoador);
             obj.set_id_Receptor(idReceptor);
-            obj.set_id_Residuos(idResiduos);
             obj.set_coleta(int_to_status(realizado));
            
             return in;
         }
-
+void Agendamento::add_residuos(int idResiduos)
+{
+    vector<int>::iterator it;
+    it = _id_residuos.end();
+    _id_residuos.insert(it,idResiduos);
+}
+bool Agendamento::remove_residuos(int idResiduos)
+{
+    vector<int>::iterator it;
+    it = _id_residuos.begin();
+    if(_id_residuos.empty())
+    {
+        cout << "Não há residuos a ser removido ";
+        return false;
+    }
+    else {
+            while(it != _id_residuos.end()){
+             if(*it == idResiduos)
+                break;
+             it++;
+            }
+            if(it != _id_residuos.end())
+                _id_residuos.erase(it);
+            else
+                cout << "Resíduo não encontrado! ";
+    }
+    return true;
+}
