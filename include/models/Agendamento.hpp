@@ -38,6 +38,7 @@ class Agendamento
         void set_coleta(Status realizado);
         void add_residuos(int idResiduos);
         bool remove_residuos(int idResiduos);
+        ~Agendamento();
 
         friend ostream& operator<<(ostream& out,const Agendamento& obj);
         friend istream& operator>>(istream& in,Agendamento& obj);

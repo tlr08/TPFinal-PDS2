@@ -220,3 +220,10 @@ bool Agendamento::remove_residuos(int idResiduos)
     }
     return true;
 }
+
+Agendamento::~Agendamento()
+{
+    _data_Agendada.clear();
+    _horario_Agendado.clear();
+    _id_residuos.clear();
+}
