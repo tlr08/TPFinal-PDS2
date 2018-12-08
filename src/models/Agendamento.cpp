@@ -1,5 +1,28 @@
 #include "Agendamento.hpp"
 
+string status_to_string(Status status){
+    switch(status){
+        case NAO_REALIZADO:
+            return "Coleta não realizada";
+        case REALIZADO:
+            return "Coleta Realizada";
+        default:
+            return "";
+    }
+}
+
+Status int_to_status(int value){
+    switch(value){
+        case 0:
+            return NAO_REALIZADO;
+        case 1:
+            return REALIZADO;
+
+        default:
+            return NAO_REALIZADO;
+    }
+}
+
 Agendamento::Agendamento()
 {
     _data_Agendada = "";
@@ -9,6 +32,7 @@ Agendamento::Agendamento()
     _id_receptor = 0;
     _id_residuo = 0;
     _id_Ponto_coleta = 0;
+    coletado = NAO_REALIZADO;
 }
 
 Agendamento::Agendamento(int id,string dataAgendada,string HoraAgendada,int id_doador,int id_receptor,int id_residuo,int id_PontoColeta)
@@ -20,6 +44,7 @@ Agendamento::Agendamento(int id,string dataAgendada,string HoraAgendada,int id_d
     _id_receptor = id_receptor;
     _id_residuo = id_residuo;
     _id_Ponto_coleta = id_PontoColeta;
+    coletado = NAO_REALIZADO;
 }
 string Agendamento::get_dataAgendada() const
 {
@@ -105,10 +130,20 @@ bool Agendamento::set_id_Ponto_coleta(int idPontoColeta)
     }
     return false;
 }
+Status Agendamento::coleta_realizada() const
+{
+    return this->coletado;
+}
+
+void Agendamento::set_coleta (Status realizado)
+{
+    this->coletado = realizado;
+}
 ostream& operator<<(ostream& out,const Agendamento& obj){
         out << "ID: " << obj.get_id() << endl;
         out << "Data: " << obj.get_dataAgendada() << endl;
         out << "Hora: " << obj.get_HoraAgendada() << endl;
+        out << "Status Coleta: " << status_to_string(obj.coleta_realizada()) << endl;
         out << endl;
         return out;
 }
@@ -119,7 +154,7 @@ istream& operator>>(istream& in,Agendamento& obj){
             int idReceptor = 0;
             int idResiduos = 0;
             int idPontoColeta = 0;
-
+            int realizado = 0;
 
 
             clearBuffer(in);
@@ -140,8 +175,12 @@ istream& operator>>(istream& in,Agendamento& obj){
             cout << "Informe o ID do Residuo: ";
             in >> idResiduos;
 
-            cout << "Informe o ID do Ponto de Coleta";
+            cout << "Informe o ID do Ponto de Coleta: ";
             in >> idPontoColeta;
+
+            cout << "Informe o Status da Coleta (0 - Não Realizado | 1 - Realizado): ";
+             in >> realizado;
+
 
             obj.set_id_Ponto_coleta(idPontoColeta);
             obj.set_dataAgendada(dataAgendada);
@@ -149,7 +188,8 @@ istream& operator>>(istream& in,Agendamento& obj){
             obj.set_id_Doador(idDoador);
             obj.set_id_Receptor(idReceptor);
             obj.set_id_Residuos(idResiduos);
+            obj.set_coleta(int_to_status(realizado));
            
-
             return in;
         }
+
