@@ -16,9 +16,10 @@ int main(int argc, const char *argv[]){
 	if(argc > 1){
 		std::string command = argv[1];
 		if(command.compare(RESET_CMD)==0)
-			db->up();
+			db->down();
 	}
 
+	db->up();
 	controller = new MainController(db);
 	controller->run();
 	

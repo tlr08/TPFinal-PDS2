@@ -44,20 +44,20 @@ bool DbHelper::runSql(std::string sql){
     if (rc != SQLITE_OK) { 
         std::cerr << "SQL ERROR" << std::endl; 
         std::cerr << messaggeError << std::endl;
-        sqlite3_free(messaggeError); 
-    } 
-    else
-        std::cout << "SUCCESS" << std::endl; 
-        
-    return false;
+        sqlite3_free(messaggeError);
+        return false; 
+    }
+    return true;
 }
 
-void DbHelper::up(){
+void DbHelper::down(){
     std::string sql ="DROP TABLE IF EXISTS RESIDUO;";
     this->runSql(sql);
     sql ="DROP TABLE IF EXISTS USUARIO;";
     this->runSql(sql);
-    sql = "CREATE TABLE IF NOT EXISTS RESIDUO ( ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, NOME TEXT NOT NULL, FORMA TEXT NOT NULL, TIPO INT NOT NULL, QUANTIDADE REAL NOT NULL, UNIDADE TEXT NOT NULL);";
+}
+void DbHelper::up(){
+    std::string sql = "CREATE TABLE IF NOT EXISTS RESIDUO ( ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, NOME TEXT NOT NULL, FORMA TEXT NOT NULL, TIPO INT NOT NULL, QUANTIDADE REAL NOT NULL, UNIDADE TEXT NOT NULL);";
     this->runSql(sql);
     sql = "CREATE TABLE IF NOT EXISTS USUARIO ( ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, NOME TEXT NOT NULL, NOME_USUARIO TEXT NOT NULL, ENDERECO TEXT NOT NULL, SENHA TEXT NOT NULL,CPF TEXT, CNPJ TEXT);";
     this->runSql(sql);
