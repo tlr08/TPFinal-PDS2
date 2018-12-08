@@ -10,6 +10,9 @@ class PessoaJuridica : public Usuario {
         PessoaJuridica() : Usuario(){
             this->cnpj = "";
         }
+        ~PessoaJuridica(){
+            this->cnpj.clear();
+        }
         PessoaJuridica(int id, string nome, string nome_usuario, string endereco, string senha,
                      string cnpj) : Usuario(id, nome, nome_usuario, endereco, senha){
             this->cnpj =cnpj;

@@ -1,9 +1,18 @@
 #include "UsuarioController.hpp"
 
+UsuarioController::UsuarioController(DbHelper* helper)
+{
+    this->dao = new UsuarioDAO(helper);
+}
+
+UsuarioController::~UsuarioController()
+{   
+    delete this->dao;
+    this->dao = nullptr;
+}
 void UsuarioController::run()
 {
     bool continueRunning = true;
-    dao = new UsuarioDAO(helper);
     do
     {
         switch (get_view())
@@ -29,8 +38,6 @@ void UsuarioController::run()
         }
 
     } while (continueRunning);
-    delete dao;
-    dao = nullptr;
 }
 
 int UsuarioController::get_view()
@@ -116,7 +123,7 @@ void UsuarioController::update()
             cin >> *pessoaJuridica;
             result = dao->update(pessoaJuridica);
         }
-        if (update)
+        if (result)
         {
             cout << "Usuário alterado com sucesso." << endl;
         }
@@ -138,7 +145,7 @@ void UsuarioController::show()
     cout << "Informe o Id do Usuário: ";
     cin >> id;
     Usuario *usuario = dao->find(id);
-    if (usuario != NULL)
+    if (usuario != nullptr)
     {
         clearScreen();
         cout << "\tDados do Usuário" << endl << endl;

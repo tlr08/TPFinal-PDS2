@@ -8,7 +8,6 @@
 
 class ResiduosDAO : public IModelDAO<Residuo>{
     private:
-        DbHelper* helper;
         Residuo* getResiduo(Row* row);
     public:
         ResiduosDAO(DbHelper* helper);

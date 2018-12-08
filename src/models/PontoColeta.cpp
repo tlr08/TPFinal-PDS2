@@ -1,100 +1,108 @@
 #include "PontoColeta.hpp"
-#include <iostream>
-        PontoColeta::PontoColeta()
-        {
-            _nome = "";
-            _endereco = "";
-            _id = 0;
-            //Usuario *_User;
-        }
-        PontoColeta::PontoColeta(int id, string nome,string endereco /*,Usuario *User*/)
-        {   _id = id;
-            _nome = nome;
-            _endereco = endereco;
-          //  _User = User;
-        }
-        string PontoColeta::get_nome() const
-        {
-            return this->_nome;
-        }
-        string PontoColeta::get_endereco() const
-        {
-            return this->_endereco;
-        }
-        int PontoColeta::get_id() const{
-            return this->_id;
-        }
-      /*  Usuario* PontoColeta::get_usuario()
-        {
-           return *_User;
-        }*/
-        bool PontoColeta::set_nome(string nome)
-        {
-            if(!nome.empty()){
-                _nome = nome;
-                return true;
-            }
-            return false;
-        }
-        bool PontoColeta::set_endereco(string endereco)
-        {
-            if(!endereco.empty()){
-                _endereco = endereco;
-                return true;
-            }
-            return false;
-        }
-        bool PontoColeta::set_id(int id)
-        {
-            if(id>0)
-            {
-                this->_id = id;
-                return true;
-            }
-            return false;
-        }
-       /* bool PontoColeta::set_Usuario(Usuario User);
-        {
+PontoColeta::PontoColeta()
+{
+    _nome = "";
+    _endereco = "";
+    _id = 0;
+    user = nullptr;
+}
+PontoColeta::PontoColeta(int id, string nome, string endereco, Usuario *user)
+{
+    _id = id;
+    _nome = nome;
+    _endereco = endereco;
+    user = user;
+}
+string PontoColeta::get_nome() const
+{
+    return this->_nome;
+}
+string PontoColeta::get_endereco() const
+{
+    return this->_endereco;
+}
+int PontoColeta::get_id() const
+{
+    return this->_id;
+}
+Usuario* PontoColeta::get_usuario() const
+{
+    return user;
+}
+bool PontoColeta::set_nome(string nome)
+{
+    if (!nome.empty())
+    {
+        _nome = nome;
+        return true;
+    }
+    return false;
+}
+bool PontoColeta::set_endereco(string endereco)
+{
+    if (!endereco.empty())
+    {
+        _endereco = endereco;
+        return true;
+    }
+    return false;
+}
+bool PontoColeta::set_id(int id)
+{
+    if (id > 0)
+    {
+        this->_id = id;
+        return true;
+    }
+    return false;
+}
+bool PontoColeta::set_Usuario(Usuario* user)
+{
+    if(user!=nullptr){
+        this->user  =user;
+        return true;
+    }
+    return false;
+}   
+PontoColeta::~PontoColeta()
+{
+    _nome.clear();
+    _endereco.clear();
+    user=nullptr;
+}
 
-        }*/
+ostream &operator<<(ostream &out, const PontoColeta &obj)
+{
+    out << "ID: " << obj.get_id() << endl;
+    out << "Nome: " << obj.get_nome() << endl;
+    if(obj.get_usuario() != nullptr)
+        out << "Usuário: " <<  obj.get_usuario() << endl;
+    out << "Endereco: " << obj.get_endereco() << endl;
+    out << endl;
+    return out;
+}
+istream &operator>>(istream &in, PontoColeta &obj)
+{
+    string nome = "";
+    string endereco = "";
 
-        PontoColeta::~PontoColeta()
-        {
-            _nome.clear();
-            _endereco.clear();
-        }
+    clearBuffer(in);
 
-         ostream& operator<<(ostream& out,const PontoColeta& obj)
-        {
-            out << "ID: " << obj.get_id() << endl;
-            out << "Nome: " << obj.get_nome() << endl;
-           // out << "Usu�rio: " << (obj.get_usuario())->get_nome_usuario << endl;
-            out << "Endereco: " << obj.get_endereco() << endl;
-            out << endl;
-            return out;
-        }
-         istream& operator>>(istream& in,PontoColeta& obj)
-        {
-            string nome = "";
-            string endereco = "";
+    cout << "Informe o nome do local: ";
+    getline(in, nome, '\n');
 
+    cout << "Informe o endereço: ";
+    getline(in, endereco, '\n');
 
-            clearBuffer(in);
+    obj.set_nome(nome);
+    obj.set_endereco(endereco);
+    cout << endl;
+    return in;
+}
 
-
-            cout << "Informe o nome do Local: ";
-            getline(in,nome,'\n');
-
-         /*   cout << "Informe o usuario: ";
-            getline(in,nome,'\n');*/
-
-            cout << "Informe o endere�o: ";
-            getline(in,endereco,'\n');
-
-
-            obj.set_nome(nome);
-           // obj.set_usuario(nome_usuario);
-            obj.set_endereco(endereco);
-            cout << endl;
-            return in;
-        }
+int PontoColeta::get_user_id() const{
+    if(user!=nullptr){
+        return user->get_id();
+    }
+    return 0;
+}

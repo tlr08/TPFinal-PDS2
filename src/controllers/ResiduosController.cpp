@@ -1,9 +1,19 @@
 #include "ResiduosController.hpp"
 
+
+ResiduosController::ResiduosController(DbHelper* helper)
+{
+    this->dao = new ResiduosDAO(helper);
+}
+ResiduosController::~ResiduosController()
+{   
+    delete this->dao;
+    this->dao = nullptr;
+}
+
 void ResiduosController::run()
 {
     bool continueRunning = true;
-    dao = new ResiduosDAO(helper);
     do
     {
         switch (get_view())
@@ -29,8 +39,6 @@ void ResiduosController::run()
         }
 
     } while (continueRunning);
-    delete dao;
-    dao = nullptr;
 }
 
 int ResiduosController::get_view()
@@ -101,7 +109,7 @@ void ResiduosController::show()
     cout << "Informe o Id do Residuo: ";
     cin >> id;
     Residuo *res = dao->find(id);
-    if (res != NULL)
+    if (res != nullptr)
     {
        cout << *res;
     }

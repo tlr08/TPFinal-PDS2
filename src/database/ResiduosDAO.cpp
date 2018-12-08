@@ -22,8 +22,8 @@ bool ResiduosDAO::create(Residuo *obj)
 
 
     sqlite3_stmt *stmt;
-    int rc = helper->prepareStatementSQL(sql, params, &stmt);
-    rc = sqlite3_step(stmt);
+    helper->prepareStatementSQL(sql, params, &stmt);
+    int rc = sqlite3_step(stmt);
     if(rc!=SQLITE_DONE)
         cout << sqlite3_errmsg(helper->getDatabase()) << endl;
     params->clear();
@@ -58,13 +58,11 @@ bool ResiduosDAO::update(Residuo *obj)
 }
 std::list<Residuo *> *ResiduosDAO::list_all()
 {
-    int rc = 0;
     Residuo* residuo;
     const char *sql = "select * from RESIDUO";
-    sqlite3_stmt *stmt;
     list<Residuo*> * listResiduo = new list<Residuo*>();
 
-    std::list<Row *> *rows = NULL;
+    std::list<Row *> *rows = nullptr;
     list<variant *> *params = new list<variant *>();
 
     rows = helper->read(sql, params);
@@ -74,7 +72,7 @@ std::list<Residuo *> *ResiduosDAO::list_all()
     for (it = rows->begin(); it != rows->end(); ++it)
     {
         residuo = getResiduo(*it);
-        if(residuo!=NULL)
+        if(residuo!=nullptr)
             listResiduo->push_back(residuo);
     }
 
@@ -82,12 +80,10 @@ std::list<Residuo *> *ResiduosDAO::list_all()
 }
 Residuo *ResiduosDAO::find(int id)
 {
-    int rc = 0;
     const char *sql = "select * from RESIDUO  where ID = ? limit 1";
-    sqlite3_stmt *stmt;
-
-    Residuo *residuo = NULL;
-    std::list<Row *> *rows = NULL;
+    
+    Residuo *residuo = nullptr;
+    std::list<Row *> *rows = nullptr;
 
     list<variant *> *params = new list<variant *>();
     params->push_back(getVariant(id));
@@ -106,7 +102,7 @@ bool ResiduosDAO::remove(int id)
 {
     sqlite3_stmt *stmt;
     const char *sql = "DELETE FROM Residuo WHERE ID = ?";
-    sqlite3_prepare_v2(helper->getDatabase(), sql, strlen(sql), &stmt, NULL);
+    sqlite3_prepare_v2(helper->getDatabase(), sql, strlen(sql), &stmt, nullptr);
     sqlite3_bind_int(stmt, 1, id);
     int rc = sqlite3_step(stmt);
 

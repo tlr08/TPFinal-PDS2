@@ -8,7 +8,8 @@ using namespace std;
 class ResiduosController : public DefaultController<Residuo>{
     public:
         void run();
-        using DefaultController<Residuo>::DefaultController;
+        ResiduosController(DbHelper* helper);
+        ~ResiduosController();
     private:
         ResiduosDAO *dao;
         int get_view();

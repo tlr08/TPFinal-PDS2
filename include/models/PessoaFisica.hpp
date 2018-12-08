@@ -10,7 +10,9 @@ class PessoaFisica : public Usuario {
         PessoaFisica() : Usuario(){
             this->cpf = "";
         }
-        
+        ~PessoaFisica(){
+            this->cpf.clear();
+        }        
         PessoaFisica(int id, string nome, string nome_usuario, string endereco, string senha,
                      string cpf) : Usuario(id, nome, nome_usuario, endereco, senha){
             this->cpf =cpf;

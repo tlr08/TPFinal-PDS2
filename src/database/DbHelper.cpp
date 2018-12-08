@@ -15,12 +15,12 @@ std::string DbHelper::getDbName(){
 
 DbHelper::DbHelper(std::string dbName){
     this->dbName = dbName;
-    this->dbFile = NULL;
+    this->dbFile = nullptr;
     this->startConnection();
 }
 
 bool DbHelper::closeConnection(){
-    if (this->dbFile != NULL){
+    if (this->dbFile != nullptr){
         return sqlite3_close(this->dbFile);
     }
     return false;
@@ -39,7 +39,7 @@ bool DbHelper:: startConnection(){
 bool DbHelper::runSql(std::string sql){
     char* messaggeError;
     int rc = 0;
-    rc = sqlite3_exec(this->dbFile, sql.c_str(), NULL, 0,&messaggeError);
+    rc = sqlite3_exec(this->dbFile, sql.c_str(), nullptr, 0,&messaggeError);
 
     if (rc != SQLITE_OK) { 
         std::cerr << "SQL ERROR" << std::endl; 
@@ -60,6 +60,8 @@ void DbHelper::up(){
     std::string sql = "CREATE TABLE IF NOT EXISTS RESIDUO ( ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, NOME TEXT NOT NULL, FORMA TEXT NOT NULL, TIPO INT NOT NULL, QUANTIDADE REAL NOT NULL, UNIDADE TEXT NOT NULL);";
     this->runSql(sql);
     sql = "CREATE TABLE IF NOT EXISTS USUARIO ( ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, NOME TEXT NOT NULL, NOME_USUARIO TEXT NOT NULL, ENDERECO TEXT NOT NULL, SENHA TEXT NOT NULL,CPF TEXT, CNPJ TEXT);";
+    this->runSql(sql);
+    sql = "CREATE TABLE IF NOT EXISTS PONTOCOLETA ( ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, NOME TEXT NOT NULL, ENDERECO TEXT NOT NULL, ID_USUARIO INT);";
     this->runSql(sql);
 }
 
@@ -108,7 +110,6 @@ int DbHelper::prepareStatementSQL(const char* sql, std::list<variant*>* params, 
     int rc = sqlite3_prepare_v2(dbFile, sql, strlen(sql), statement, 0);
     std::list<variant*>::iterator it;
     int paramCount =1;
-    int x = 0;
     for(it = params->begin();it!= params->end(); ++it){
         std::string result = "";
         switch((*it)->variantType){

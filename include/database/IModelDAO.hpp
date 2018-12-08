@@ -14,6 +14,8 @@
 
 template <class T>
 class IModelDAO{
+    protected:
+        DbHelper* helper;
     public:
         virtual bool create(T* obj) = 0;
         virtual bool update(T* obj) = 0;

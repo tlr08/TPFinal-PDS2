@@ -8,8 +8,10 @@ using namespace std;
 class AgendamentoController : public DefaultController<Agendamento>{
     public:
         void run();
-        using DefaultController<Agendamento>::DefaultController;
+        AgendamentoController(DbHelper* helper);
     private:
+        list<Agendamento*>* data_set;    
+        DbHelper* helper;
         int get_view();
         void create();
         void list_all();

@@ -9,19 +9,7 @@ template <class T>
 class DefaultController {
     public:
         virtual void run() = 0;
-        DefaultController(DbHelper* helper){
-            this->data_set = new list<T*>();
-            this->helper = helper;
-        }
-        ~DefaultController(){
-            this->helper = nullptr;
-            this->data_set->clear();
-            delete this->data_set;
-            this->data_set = nullptr;
-        }
     protected:
-        DbHelper* helper;
-        std::list<T*> *data_set;
         virtual int get_view() = 0;
         virtual void create() = 0;
         virtual void update() = 0;

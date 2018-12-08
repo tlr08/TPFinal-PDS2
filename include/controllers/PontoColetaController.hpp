@@ -2,14 +2,18 @@
 #define PONTOCOLETA_CONTROLLER_H
 #include "stdafx.hpp"
 #include "DefaultController.hpp"
-#include "PontoColeta.hpp"
+#include "PontoColetaDAO.hpp"
+#include "UsuarioDAO.hpp"
 
 using namespace std;
 class PontoColetaController : public DefaultController<PontoColeta>{
     public:
         void run();
-        using DefaultController<PontoColeta>::DefaultController;
+        PontoColetaController (DbHelper* helper);
+        ~PontoColetaController();
     private:
+        PontoColetaDAO* dao;
+        UsuarioDAO*usuarioDAO;
         int get_view();
         void create();
         void list_all();

@@ -32,12 +32,6 @@ Usuario::Usuario(int id,  string nome, string nome_usuario, string endereco, str
     this->senha = senha;
 }
 
-Usuario::~Usuario(){
-    this->endereco.clear();
-    this->nome.clear();
-    this->nome_usuario.clear();
-    this->senha.clear();    
-}
 
 Usuario::Usuario(){
     this->id =  0;

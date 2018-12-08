@@ -4,8 +4,7 @@ UsuarioDAO::UsuarioDAO(DbHelper *helper)
 {
     this->helper = helper;
 }
-UsuarioDAO::~UsuarioDAO(){
-    
+UsuarioDAO::~UsuarioDAO(){    
 }
 
 bool UsuarioDAO::create(Usuario *obj)
@@ -76,13 +75,11 @@ bool UsuarioDAO::update(Usuario *obj)
 }
 std::list<Usuario *> *UsuarioDAO::list_all()
 {
-    int rc = 0;
     Usuario* usuario;
     const char *sql = "select (u.cpf = '')+1 as TIPO ,u.* from usuario u";
-    sqlite3_stmt *stmt;
     list<Usuario*> * listUsuario = new list<Usuario*>();
 
-    std::list<Row *> *rows = NULL;
+    std::list<Row *> *rows = nullptr;
     list<variant *> *params = new list<variant *>();
 
     rows = helper->read(sql, params);
@@ -92,7 +89,7 @@ std::list<Usuario *> *UsuarioDAO::list_all()
     for (it = rows->begin(); it != rows->end(); ++it)
     {
         usuario = getPessoa(*it);
-        if(usuario!=NULL)
+        if(usuario!=nullptr)
             listUsuario->push_back(usuario);
     }
 
@@ -100,12 +97,10 @@ std::list<Usuario *> *UsuarioDAO::list_all()
 }
 Usuario *UsuarioDAO::find(int id)
 {
-    int rc = 0;
     const char *sql = "select (u.cpf = '')+1 as TIPO ,u.* from usuario u  where u.id = ? limit 1";
-    sqlite3_stmt *stmt;
-
-    Usuario *usuario = NULL;
-    std::list<Row *> *rows = NULL;
+    
+    Usuario *usuario = nullptr;
+    std::list<Row *> *rows = nullptr;
 
     list<variant *> *params = new list<variant *>();
     params->push_back(getVariant(id));
@@ -123,7 +118,7 @@ bool UsuarioDAO::remove(int id)
 {
     sqlite3_stmt *stmt;
     const char *sql = "DELETE FROM USUARIO WHERE ID = ?";
-    sqlite3_prepare_v2(helper->getDatabase(), sql, strlen(sql), &stmt, NULL);
+    sqlite3_prepare_v2(helper->getDatabase(), sql, strlen(sql), &stmt, nullptr);
     sqlite3_bind_int(stmt, 1, id);
     return sqlite3_step(stmt) == SQLITE_DONE;
 }

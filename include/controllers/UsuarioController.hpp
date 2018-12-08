@@ -8,7 +8,8 @@ using namespace std;
 class UsuarioController : public DefaultController<Usuario>{
     public:
         void run();
-        using DefaultController<Usuario>::DefaultController;
+        UsuarioController(DbHelper* helper);
+        ~UsuarioController();
     private:
         UsuarioDAO* dao;
         int get_view();

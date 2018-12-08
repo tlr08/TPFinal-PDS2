@@ -14,7 +14,12 @@ class Usuario  {
         string endereco;
         
     public:
-        ~Usuario();
+        ~Usuario() {
+            this->endereco.clear();
+            this->nome.clear();
+            this->nome_usuario.clear();
+            this->senha.clear();    
+        }
         Usuario();
         Usuario(int id, string nome, string nome_usuario, string endereco, string senha);
         virtual bool valida_dados() = 0;

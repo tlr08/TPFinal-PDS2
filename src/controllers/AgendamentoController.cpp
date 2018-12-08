@@ -1,5 +1,8 @@
 #include "AgendamentoController.hpp"
 
+AgendamentoController::AgendamentoController(DbHelper* helper){
+    this->helper = helper;
+}
 
 void AgendamentoController::run(){
     bool continueRunning = true;

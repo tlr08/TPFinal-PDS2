@@ -10,10 +10,9 @@
 
 class UsuarioDAO : public IModelDAO<Usuario>{
     private:
-        DbHelper* helper;
         Usuario* getPessoa(Row* row);
     public:
-        UsuarioDAO(DbHelper* helpr);
+        UsuarioDAO(DbHelper* helper);
         ~UsuarioDAO();
         bool create(Usuario* obj);
         bool update(Usuario* obj);
