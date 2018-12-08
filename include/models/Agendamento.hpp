@@ -6,12 +6,19 @@
 #include <string>
 using namespace std;
 
+enum Status{
+    NAO_REALIZADO = 0,
+    REALIZADO = 1
+};
+
+string status_to_string(Status status);
+Status int_to_status(int);
 class Agendamento
 {
     public:
         Agendamento();
         Agendamento(int id,string dataAgendada,string HoraAgendada,int id_doador,int id_receptor,int id_residuo,int id_PontoColeta);
-        bool coleta_realizada();
+        Status coleta_realizada() const;
         string get_dataAgendada() const;
         string get_HoraAgendada() const;
         bool set_dataAgendada(string dataAgendada);
@@ -26,6 +33,7 @@ class Agendamento
         bool set_id_Receptor(int idReceptor);
         bool set_id_Residuos(int idResiduos);
         bool set_id_Ponto_coleta(int idPontoColeta);
+        void set_coleta(Status realizado);
 
         friend ostream& operator<<(ostream& out,const Agendamento& obj);
         friend istream& operator>>(istream& in,Agendamento& obj);
@@ -33,6 +41,7 @@ class Agendamento
     private:
         string _data_Agendada, _horario_Agendado;
         int _ID,_id_doador,_id_receptor,_id_residuo,_id_Ponto_coleta;
+        Status coletado; 
 
 };
 
