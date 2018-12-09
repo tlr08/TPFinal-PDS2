@@ -51,6 +51,11 @@ ostream &operator<<(ostream &out, const AgendamentoItens &obj)
 }
 istream &operator>>(istream &in, AgendamentoItens &obj)
 {
+    double quantidade = 0;
+
+    std::cout << "Informe a quantidade de resíduo: ";    
+    in >> quantidade;
+    obj.set_quantidade(quantidade);
     return in;
 }
 
