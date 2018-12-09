@@ -1,229 +1,216 @@
 #include "Agendamento.hpp"
 
-string status_to_string(Status status){
-    switch(status){
-        case NAO_REALIZADO:
-            return "Coleta não realizada";
-        case REALIZADO:
-            return "Coleta Realizada";
-        default:
-            return "";
+string status_to_string(Status status)
+{
+    switch (status)
+    {
+    case NAO_REALIZADO:
+        return "Coleta não realizada";
+    case REALIZADO:
+        return "Coleta Realizada";
+    default:
+        return "";
     }
 }
 
-Status int_to_status(int value){
-    switch(value){
-        case 0:
-            return NAO_REALIZADO;
-        case 1:
-            return REALIZADO;
+Status int_to_status(int value)
+{
+    switch (value)
+    {
+    case 0:
+        return NAO_REALIZADO;
+    case 1:
+        return REALIZADO;
 
-        default:
-            return NAO_REALIZADO;
+    default:
+        return NAO_REALIZADO;
     }
 }
 
 Agendamento::Agendamento()
 {
-    _data_Agendada = "";
-    _horario_Agendado = "";
-    _ID = 0;
-    _id_doador = 0;
-    _id_receptor = 0;
-    set_id_Residuos(0);
-    _id_Ponto_coleta = 0;
-    coletado = NAO_REALIZADO;
+    this->data_agendado = "";
+    this->horario_agendado = "";
+    this->id = 0;
+    this->doador = nullptr;
+    this->receptor = nullptr;
+    this->local = nullptr;
+    this->itens_agendamento = new list<AgendamentoItens *>();
+    this->status = NAO_REALIZADO;
 }
 
-Agendamento::Agendamento(int id,string dataAgendada,string HoraAgendada,int id_doador,int id_receptor,int id_residuo,int id_PontoColeta)
+Agendamento::Agendamento(int id, string dataAgendada,
+                    string HoraAgendada,Usuario* doador,
+                    Usuario* receptor,PontoColeta* local,
+                    Status status)
 {
-    _data_Agendada = dataAgendada;
-    _horario_Agendado = HoraAgendada;
-    _ID = id;
-    _id_doador = id_doador;
-    _id_receptor = id_receptor;
-    set_id_Residuos(id_residuo);
-    _id_Ponto_coleta = id_PontoColeta;
-    coletado = NAO_REALIZADO;
+    this->itens_agendamento= new list<Agendamento*>();
+    this->id = id;
+    this->data_agendado = dataAgendada;
+    this->horario_agendado = HoraAgendada;
+    this->doador = doador;
+    this->receptor = receptor;
+    this->local = local;
+    this->status = status;
 }
-string Agendamento::get_dataAgendada() const
+Agendamento::Agendamento(int id, string dataAgendada, string HoraAgendada, int id_doador, int id_receptor, int id_residuo, int id_PontoColeta)
 {
-    return this->_data_Agendada;
-}
-string Agendamento::get_HoraAgendada() const
-{
-    return this->_horario_Agendado;
-}
-bool Agendamento::set_dataAgendada(string dataAgendada)
-{
-     if(!dataAgendada.empty()){
-        this->_data_Agendada = dataAgendada;
-        return true;
-    }
-    return false;
-}
-bool Agendamento::set_HoraAgendada(string horaAgendada)
-{
-    if(!horaAgendada.empty()){
-        this->_horario_Agendado = horaAgendada;
-        return true;
-    }
-    return false;
+    this->id = id;
+    this->data_agendado = dataAgendada;
+    this->horario_agendado = HoraAgendada;
+    this_
 }
 
-int Agendamento::get_id_Doador() const
+ostream &operator<<(ostream &out, const Agendamento &obj)
 {
-    return this->_id_doador;
+    out << "ID: " << obj.get_id() << endl;
+    out << "Data: " << obj.get_dataAgendada() << endl;
+    out << "Hora: " << obj.get_HoraAgendada() << endl;
+    out << "Status Coleta: " << status_to_string(obj.coleta_realizada()) << endl;
+    out << endl;
+    return out;
 }
-int Agendamento::get_id() const
+istream &operator>>(istream &in, Agendamento &obj)
 {
-    return this->_ID;
-}
-int Agendamento::get_id_Receptor() const
-{
-    return this->_id_receptor;
-}
-std::vector<int>::iterator Agendamento::get_id_Residuo() 
-{
-    return _id_residuos.begin();
-}
-int Agendamento::get_id_Ponto_coleta() const{
-    return this->_id_Ponto_coleta;
-}
-bool Agendamento::set_id(int id)
-{
-    if(!(id == 0)){
-        this->_ID = id;
-        return true;
-    }
-    return false;
-}
-bool Agendamento::set_id_Doador(int idDoador)
-{
-    if(!(idDoador == 0)){
-        this->_id_doador = idDoador;
-        return true;
-    }
-    return false;
-}
-bool Agendamento::set_id_Receptor(int idReceptor)
-{
-     if(!(idReceptor == 0)){
-        this->_id_receptor = idReceptor;
-        return true;
-    }
-    return false;
-}
-bool Agendamento::set_id_Residuos(int idResiduos)
-{
-     if(!(idResiduos == 0)){
-        _id_residuos.push_back(idResiduos);
-        return true;
-    }
-    return false;
-}
-bool Agendamento::set_id_Ponto_coleta(int idPontoColeta)
-{
-    if(!(idPontoColeta == 0)){
-        this->_id_Ponto_coleta = idPontoColeta;
-        return true;
-    }
-    return false;
-}
-Status Agendamento::coleta_realizada() const
-{
-    return this->coletado;
-}
+    string dataAgendada = "";
+    string HoraAgendada = "";
+    int idDoador = 0;
+    int idReceptor = 0;
+    int idResiduos = 0;
+    int idPontoColeta = 0;
+    int realizado = 0;
 
-void Agendamento::set_coleta (Status realizado)
-{
-    this->coletado = realizado;
-}
-ostream& operator<<(ostream& out,const Agendamento& obj){
-        out << "ID: " << obj.get_id() << endl;
-        out << "Data: " << obj.get_dataAgendada() << endl;
-        out << "Hora: " << obj.get_HoraAgendada() << endl;
-        out << "Status Coleta: " << status_to_string(obj.coleta_realizada()) << endl;
-        out << endl;
-        return out;
-}
-istream& operator>>(istream& in,Agendamento& obj){
-            string dataAgendada = "";
-            string HoraAgendada = "";
-            int idDoador = 0;
-            int idReceptor = 0;
-            int idResiduos = 0;
-            int idPontoColeta = 0;
-            int realizado = 0;
+    clearBuffer(in);
 
+    cout << "Informe a data para agendamento(DD/MM/AAAA): ";
+    getline(in, dataAgendada, '\n');
 
-            clearBuffer(in);
+    cout << "Informe o horário para agendamento(HH:MM): ";
+    getline(in, HoraAgendada, '\n');
 
+    cout << "Informe o ID do Doador: ";
+    in >> idDoador;
 
-            cout << "Informe a data para agendamento(DD/MM/AAAA): ";
-            getline(in,dataAgendada,'\n');
+    cout << "Informe o ID do Receptor: ";
+    in >> idReceptor;
 
-            cout << "Informe o horário para agendamento(HH:MM): ";
-            getline(in,HoraAgendada,'\n');
+    cout << "Informe o ID do Residuo: ";
+    in >> idResiduos;
+    obj.set_id_Residuos(idResiduos);
 
-            cout << "Informe o ID do Doador: ";
-            in >> idDoador;
+    cout << "Informe o ID do Ponto de Coleta: ";
+    in >> idPontoColeta;
 
-            cout << "Informe o ID do Receptor: ";
-            in >> idReceptor;
+    cout << "Informe o Status da Coleta (0 - Não Realizado | 1 - Realizado): ";
+    in >> realizado;
 
-            cout << "Informe o ID do Residuo: ";
-            in >> idResiduos;
-            obj.set_id_Residuos(idResiduos);
+    obj.set_id_Ponto_coleta(idPontoColeta);
+    obj.set_dataAgendada(dataAgendada);
+    obj.set_HoraAgendada(HoraAgendada);
+    obj.set_id_Doador(idDoador);
+    obj.set_id_Receptor(idReceptor);
+    obj.set_coleta(int_to_status(realizado));
 
-            cout << "Informe o ID do Ponto de Coleta: ";
-            in >> idPontoColeta;
-
-            cout << "Informe o Status da Coleta (0 - Não Realizado | 1 - Realizado): ";
-             in >> realizado;
-
-
-            obj.set_id_Ponto_coleta(idPontoColeta);
-            obj.set_dataAgendada(dataAgendada);
-            obj.set_HoraAgendada(HoraAgendada);
-            obj.set_id_Doador(idDoador);
-            obj.set_id_Receptor(idReceptor);
-            obj.set_coleta(int_to_status(realizado));
-           
-            return in;
-        }
-void Agendamento::add_residuos(int idResiduos)
-{
-    vector<int>::iterator it;
-    it = _id_residuos.end();
-    _id_residuos.insert(it,idResiduos);
-}
-bool Agendamento::remove_residuos(int idResiduos)
-{
-    vector<int>::iterator it;
-    it = _id_residuos.begin();
-    if(_id_residuos.empty())
-    {
-        cout << "Não há residuos a ser removido ";
-        return false;
-    }
-    else {
-            while(it != _id_residuos.end()){
-             if(*it == idResiduos)
-                break;
-             it++;
-            }
-            if(it != _id_residuos.end())
-                _id_residuos.erase(it);
-            else
-                cout << "Resíduo não encontrado! ";
-    }
-    return true;
+    return in;
 }
 
 Agendamento::~Agendamento()
 {
-    _data_Agendada.clear();
-    _horario_Agendado.clear();
-    _id_residuos.clear();
+    this->doador = nullptr;
+    this->receptor = nullptr;
+    this->local = nullptr;
+    this->data_agendado.clear();
+    this->horario_agendado.clear();
+    this->itens_agendamento->clear();
+    this->id = 0;
+    delete this->itens_agendamento;
+}
+
+int Agendamento::get_id() const 
+{
+    return this->id;
+}
+string Agendamento::get_data_agendada() const
+{
+    return this->data_agendado;
+}
+string Agendamento::get_hora_agendada() const 
+{
+    return this->horario_agendado;
+}
+list<AgendamentoItens *>* Agendamento::get_itens() const
+{
+    return this->itens_agendamento;
+}
+Usuario* Agendamento::get_doador() const{
+    return this->doador;
+}
+Usuario* Agendamento::get_receptor() const{
+    return this->receptor;
+}
+PontoColeta* Agendamento::get_local() const{
+    return this->local;
+}
+Status Agendamento::get_status() const {
+    return this->status;
+}
+
+bool Agendamento::set_id(int id){
+    if(id>0)
+        this->id  =id;
+    return id>0;
+}
+bool Agendamento::set_doador(Usuario *doador){
+    if(doador!=nullptr)
+        this->doador =doador;
+    return doador!=nullptr;
+}
+bool Agendamento::set_recepetor(Usuario *receptor){
+    if(receptor!=nullptr)
+        this->receptor = receptor;
+    return receptor!=nullptr;
+}
+bool Agendamento::set_local(PontoColeta *local){
+    if(local!=nullptr)
+        this->local = local;
+    return local!=nullptr;
+}
+bool Agendamento::set_data_agendada(string data_agendada){
+    if(!data_agendada.empty())
+        this->data_agendado = data_agendada;
+    return !data_agendada.empty();
+}
+bool Agendamento::set_hora_agendada(string hora_agendada){
+    if(!hora_agendada.empty())
+        this->horario_agendado = hora_agendada;
+    return !hora_agendada.empty();
+}
+void Agendamento::set_status(Status status){
+    this->status = status;
+}
+
+bool Agendamento::add_residuo(Residuo *residuo, double quantidade){
+    if(residuo!=nullptr && quantidade>0){
+        this->itens_agendamento->push_back(new AgendamentoItens(residuo,quantidade));
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+bool Agendamento::remove_residuo(Residuo *residuo){
+    bool removed = false
+    for(auto it = itens_agendamento;it!= itens_agendamento.end();++it){
+        if(residuo->get_id() == (*it)->get_residuo()->get_id()){
+            itens_agendamento->remove(*it);
+            removed = true;
+            break;
+        }
+    }
+    return removed;
+}
+bool Agendamento::set_itens(list<AgendamentoItens*>* itens){
+    if(itens!=nullptr)
+        this->itens_agendamento= itens;
+    return itens!=nullptr;
 }

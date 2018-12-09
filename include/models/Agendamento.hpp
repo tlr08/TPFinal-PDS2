@@ -3,8 +3,8 @@
 #include "Usuario.hpp"
 #include "PontoColeta.hpp"
 #include "Residuo.hpp"
-#include <string>
-#include <vector>
+#include "AgendamentoItens.hpp"
+#include "stdafx.hpp"
 
 using namespace std;
 
@@ -15,40 +15,52 @@ enum Status{
 
 string status_to_string(Status status);
 Status int_to_status(int);
+
+
 class Agendamento
 {
     public:
         Agendamento();
-        Agendamento(int id,string dataAgendada,string HoraAgendada,int id_doador,int id_receptor,int id_residuo,int id_PontoColeta);
-        Status coleta_realizada() const;
-        string get_dataAgendada() const;
-        string get_HoraAgendada() const;
-        bool set_dataAgendada(string dataAgendada);
-        bool set_HoraAgendada(string horaAgendada);
+        Agendamento(int id, string dataAgendada,
+                    string HoraAgendada,Usuario* doador,
+                    Usuario* receptor,PontoColeta* local,
+                    Status status);
+        
         int get_id() const;
-        int get_id_Doador() const;
-        int get_id_Receptor() const;
-        std::vector<int>::iterator  get_id_Residuo() ;
-        int get_id_Ponto_coleta() const;
+        string get_data_agendada() const;
+        string get_hora_agendada() const;
+        list<AgendamentoItens*>* get_itens() const;
+        Usuario* get_doador() const;
+        Usuario* get_receptor() const;
+        PontoColeta* get_local() const;
+        Status get_status() const;
+
         bool set_id(int id);
-        bool set_id_Doador(int idDoador);
-        bool set_id_Receptor(int idReceptor);
-        bool set_id_Residuos(int idResiduos);
-        bool set_id_Ponto_coleta(int idPontoColeta);
-        void set_coleta(Status realizado);
-        void add_residuos(int idResiduos);
-        bool remove_residuos(int idResiduos);
+        bool set_doador(Usuario* doador);
+        bool set_recepetor(Usuario* receptor);
+        bool set_local(PontoColeta* local);
+        bool set_data_agendada(string data_agendada);
+        bool set_hora_agendada(string hora_agendada);
+        bool set_itens(list<AgendamentoItens*>* list);
+        void set_status(Status status);
+
+        bool add_residuo(Residuo* residuo, double quantidade);
+        bool remove_residuo(Residuo* residuo);
+
+        
+        
         ~Agendamento();
 
         friend ostream& operator<<(ostream& out,const Agendamento& obj);
         friend istream& operator>>(istream& in,Agendamento& obj);
 
     private:
-        string _data_Agendada, _horario_Agendado;
-        int _ID,_id_doador,_id_receptor,_id_Ponto_coleta;
-        vector <int> _id_residuos; 
-        Status coletado; 
-
+        int id;
+        string data_agendado, horario_agendado;
+        Usuario* doador, receptor;
+        PontoColeta* local;
+        Status status; 
+        list<AgendamentoItens*>* itens_agendamento;
 };
 
 #endif // AGENDAMENTO_H

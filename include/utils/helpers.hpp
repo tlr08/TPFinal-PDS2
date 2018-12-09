@@ -24,6 +24,7 @@ typedef struct struct_variant {
 int clearScreen();
 void waitKey();
 void clearBuffer(std::istream& in);
+
 double getDouble(variant* data);
 int getInt(variant* data);
 std::string getString(variant* data);

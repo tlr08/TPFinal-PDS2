@@ -1,0 +1,4 @@
+#ifndef INPUT_EXECEPTION_HPP
+#define INPUT_EXECEPTION_HPP
+
+#endif

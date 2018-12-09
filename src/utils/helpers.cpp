@@ -4,7 +4,7 @@ double getDouble(variant* data){
     if(data->variantType == t_double){
         return data->data.double_value;
     } else { 
-        return 0;
+        return -1;
     }
 
 }
