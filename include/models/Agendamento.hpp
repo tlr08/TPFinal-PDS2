@@ -48,6 +48,7 @@ class Agendamento
         bool set_itens(list<AgendamentoItens*>* list);
         void set_status(Status status);
 
+        bool add_item(AgendamentoItens* item);
         bool add_residuo(Residuo* residuo, double quantidade);
         bool remove_residuo(Residuo* residuo);
 

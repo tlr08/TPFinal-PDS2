@@ -16,6 +16,7 @@ class AgendamentoController : public DefaultController<Agendamento>{
         ~AgendamentoController();
     private:
         AgendamentoDAO* dao;   
+        AgendamentoItensDAO* itensDAO;   
         UsuarioDAO* usuarioDAO;
         PontoColetaDAO* localDAO;
         ResiduosDAO* residuosDAO;

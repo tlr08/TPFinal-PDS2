@@ -175,6 +175,18 @@ bool Agendamento::set_hora_agendada(string hora_agendada){
 void Agendamento::set_status(Status status){
     this->status = status;
 }
+bool Agendamento::add_item(AgendamentoItens* item)
+{
+    if(item!=nullptr)
+    {
+        this->itens_agendamento->push_back(item);
+        return true;
+    } 
+    else
+    {
+        return false;
+    }
+}
 
 bool Agendamento::add_residuo(Residuo *residuo, double quantidade){
     if(residuo!=nullptr && quantidade>0){
