@@ -84,7 +84,7 @@ bool AgendamentoDAO::update(Agendamento*obj)
 std::list<Agendamento*> *AgendamentoDAO::list_all()
 {
     Agendamento* agendamento = nullptr;
-    const char *sql = "SELECET * from AGENDAMENTO";
+    const char *sql = "SELECT * from AGENDAMENTO";
     list<Agendamento*> *listAgendamento = new list<Agendamento*>();
 
     std::list<Row *> *rows = nullptr;
