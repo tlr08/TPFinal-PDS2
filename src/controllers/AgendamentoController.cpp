@@ -195,7 +195,18 @@ void AgendamentoController::update(){
 }
 
 void AgendamentoController::remove() {
-      
+      int id = 0;
+      cout << "Informe o ID do AGendamento: ";
+      cin >> id;
+      Agendamento *agendamento = dao->find(id);
+      if (agendamento != nullptr)
+      {
+          dao->remove(id);
+          cout << "Agendamento removido com sucesso!" << endl;
+      }
+      else{
+          cout <<  "Não foi possível remover o Agendamento selecionado." << endl;
+      }
 
 }
 
