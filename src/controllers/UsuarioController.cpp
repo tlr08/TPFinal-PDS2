@@ -169,14 +169,17 @@ void UsuarioController::show()
 void UsuarioController::remove()
 {
     int id = 0;
-    bool removed = false;
+    cout << "ID do Usuário a ser removido: " << endl;
     cin >> id;
-
-    removed = dao->remove(id);
-    if (!removed)
+   Usuario *usuario = dao->find(id);
+    if (usuario != nullptr)
+    {
+     dao->remove(id);   
+     cout << "Usuário removido com sucesso." << endl;
+    }
+    else{
         cout << "Não foi possível remover o usuário selecionado." << endl;
-    else
-        cout << "Usuário removido com sucesso." << endl;
+    }
 
     waitKey();
 }

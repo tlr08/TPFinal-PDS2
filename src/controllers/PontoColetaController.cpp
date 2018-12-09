@@ -173,7 +173,7 @@ void PontoColetaController::show()
     if (ponto != nullptr)
     {
         cout << "\tDados do Ponto de Coleta" << endl;
-        cout << ponto << endl;
+        cout << *ponto << endl;
     }
     else
     {
@@ -185,14 +185,20 @@ void PontoColetaController::show()
 void PontoColetaController::remove()
 {
     int id = 0;
-    bool removed = false;
-    cout << "Informe o Id do ponto de coleta:: ";
+    cout << "Informe o Id do Ponto de coleta: ";
     cin >> id;
-    removed = dao->remove(id);
-    if (!removed)
-        cout << "Não foi possível remover o Ponto de Coleta selecionado." << endl;
-    else
+    PontoColeta *ponto = dao->find(id);
+    if (ponto != nullptr)
+    {
+        dao->remove(id);
         cout << "Ponto de coleta removido com sucesso." << endl;
+        
+    }
+    else
+    {
+        cout << "Não foi possível remover o Ponto de Coleta selecionado." << endl;
+    }
+
 
     waitKey();
 }

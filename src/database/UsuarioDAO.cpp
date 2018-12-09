@@ -126,7 +126,7 @@ bool UsuarioDAO::remove(Usuario *obj)
 Usuario *UsuarioDAO::getPessoa(Row *row)
 {
     Usuario *usuario = nullptr;
-    if (getInt(row->getValue("TIPO")) == 0)
+    if (getInt(row->getValue("TIPO")) == 1)
         usuario = new PessoaFisica();
     else
         usuario = new PessoaJuridica();
