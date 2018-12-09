@@ -162,7 +162,11 @@ istream& operator>>(istream& in, Residuo& obj){
     cout << "Informe a Quantidade:";
     in >> quantidade;
 
-    cout << "Informe o Tipo de Resíduo:";
+    cout << "Informe o Tipo de Resíduo:" << "0 - NAO" << endl
+            << "0 - Líquido" << endl
+            << "1 - Sólido" << endl
+            << "2 - Orgânico" << endl;
+
     in >> tipo_residuo;
 
 
