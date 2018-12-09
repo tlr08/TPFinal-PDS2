@@ -39,3 +39,5 @@
 .vscode/
 bin/
 build/
+
+*.db
