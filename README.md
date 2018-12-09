@@ -1,5 +1,5 @@
 # Gestão de Residuos 
-==============
+----------------
 Trabalho Prático Final da Disciplina de PDS2 - UFMG - 2018/2
 Trata-se de um sistema de gerenciamento de resíduos feito em C++
 
@@ -28,6 +28,15 @@ Trata-se de um sistema de gerenciamento de resíduos feito em C++
 - Como funcionalidade extra, temos como proposta a persistência dos dados inseridos pelo usuário num banco de dados relacional.
 - A escolha do SQLite como banco de dados, se dá pela facilidade em trabalhar com ele, pensando a tempo necessário para configuração e tamanho.
 
+### Compilação
+---------------
+É necessário a instalação da biblioteca "libsqlite3-dev", para compilação do projeto.
+
+> sudo apt install libsqlite3-dev
+
+> sudo pacman -S sqlite
+
+> sudo dnf install sqlite sqlite-devel
 
 ### Observações
 * Feito com C++/11
