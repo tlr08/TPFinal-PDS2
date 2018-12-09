@@ -30,8 +30,8 @@ main: $(OBJECTS)
 
 tests: $(OBJECTS)
 	@mkdir -p $(BINDIR)
-	$(CC) $(CFLAGS) $(INC) $(TESTER) $(TSTSOURCES) $^ -o $(BINDIR)/tester
-	$(BINDIR)/tester -lsqlite3
+	$(CC) $(CFLAGS) $(INC) $(TESTER) $(TSTSOURCES) $^ -o $(BINDIR)/tester -lsqlite3
+	$(BINDIR)/tester 
 
 all: main
 
