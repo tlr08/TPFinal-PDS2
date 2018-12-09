@@ -3,7 +3,7 @@
 
 TEST_CASE("Teste - Construtor")
 {
-    Usuario *user;
+    Usuario *user = nullptr;
     PontoColeta *local = new PontoColeta(1,"BH Shopping","BH",user);
     CHECK(local->get_id() == 1);
     CHECK(local->get_nome() == "BH Shopping");
