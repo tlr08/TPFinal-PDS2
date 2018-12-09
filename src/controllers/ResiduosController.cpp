@@ -125,9 +125,11 @@ void ResiduosController::remove()
     int id = -1;
     cout << "Informe o Id do Residuo: ";
     cin >> id;
-    if (dao->remove(id))
+    Residuo *res = dao->find(id);
+    if (res != nullptr)
     {
-       cout << "Resíduo removido com sucesso!" << endl;
+        dao->remove(id);
+        cout << "Resíduo removido com sucesso!" << endl;
     }
     else
     {
@@ -139,6 +141,7 @@ void ResiduosController::remove()
 void ResiduosController::list_all()
 {
     clearScreen();
+     cout << "\tResíduos cadastrados" << endl;
     for (Residuo *residuo : *dao->list_all())
     {
         cout << *residuo;
