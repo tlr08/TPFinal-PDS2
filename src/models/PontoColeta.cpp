@@ -76,7 +76,7 @@ ostream &operator<<(ostream &out, const PontoColeta &obj)
     out << "ID: " << obj.get_id() << endl;
     out << "Nome: " << obj.get_nome() << endl;
     if(obj.get_usuario() != nullptr)
-        out << "Usuário: " <<  obj.get_usuario() << endl;
+        out << "Usuário: " <<  (obj.get_usuario())->get_nome_usuario() << endl;
     out << "Endereco: " << obj.get_endereco() << endl;
     out << endl;
     return out;
