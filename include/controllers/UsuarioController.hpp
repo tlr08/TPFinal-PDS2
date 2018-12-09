@@ -18,7 +18,6 @@ class UsuarioController : public DefaultController<Usuario>{
         void update();
         void remove();
         void show(); 
-        int get_next_id();
 };
 
 #endif

@@ -5,8 +5,9 @@ AgendamentoItens::AgendamentoItens()
     this->residuo = nullptr;
     this->quantidade = 0;
 }
-AgendamentoItens::AgendamentoItens(Residuo *residuo, double quantidade)
+AgendamentoItens::AgendamentoItens(int id_agendamento, Residuo *residuo, double quantidade)
 {   
+    this->id_agendamento = id_agendamento;
     this->residuo =residuo;
     this->quantidade = quantidade;
 }
@@ -37,7 +38,7 @@ Residuo* AgendamentoItens::get_residuo() const
     return this->residuo;
 }
 
-friend ostream &operator<<(ostream &out, const AgendamentoItens &obj)
+ostream &operator<<(ostream &out, const AgendamentoItens &obj)
 {
     out << obj.get_residuo()->get_id()
         << " - "
@@ -48,7 +49,36 @@ friend ostream &operator<<(ostream &out, const AgendamentoItens &obj)
         << obj.get_residuo()->get_Unidade() << endl;
     return out;
 }
-friend istream &operator>>(istream &in, AgendamentoItens &obj)
+istream &operator>>(istream &in, AgendamentoItens &obj)
 {
     return in;
+}
+
+bool AgendamentoItens::set_id_agendamento(int agendamento)
+{
+    if(agendamento>0)
+        this->id_agendamento =agendamento;
+    return agendamento>0;
+}
+bool AgendamentoItens::set_id(int id)
+{
+    if(id>0)
+        this->id = id;
+    return id>0;
+}
+int AgendamentoItens::get_id() const 
+{
+    return this->id;
+}
+int AgendamentoItens::get_id_agendamento() const
+{
+    return this->id_agendamento;
+}
+
+int AgendamentoItens::get_id_residuo() const
+{
+    if(residuo!=nullptr)
+        return residuo->get_id();
+    else    
+        return 0;
 }

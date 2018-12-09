@@ -13,6 +13,7 @@ class AgendamentoController : public DefaultController<Agendamento>{
     public:
         void run();
         AgendamentoController(DbHelper* helper);
+        ~AgendamentoController();
     private:
         AgendamentoDAO* dao;   
         UsuarioDAO* usuarioDAO;
@@ -24,7 +25,6 @@ class AgendamentoController : public DefaultController<Agendamento>{
         void update();
         void remove();
         void show(); 
-        int get_next_id();
         void residuos();
 };
 

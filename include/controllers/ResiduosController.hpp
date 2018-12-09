@@ -18,7 +18,6 @@ class ResiduosController : public DefaultController<Residuo>{
         void update();
         void remove();
         void show(); 
-        int get_next_id();
 };
 
 #endif

@@ -27,6 +27,18 @@ Status int_to_status(int value)
     }
 }
 
+
+int status_to_int(Status value){
+    switch(value)
+    {
+        case NAO_REALIZADO:
+            return 0;
+        case REALIZADO:
+            return 1;
+        default:
+            return 0;
+    }
+}
 Agendamento::Agendamento()
 {
     this->data_agendado = "";
@@ -53,17 +65,7 @@ Agendamento::Agendamento(int id, string dataAgendada,
     this->local = local;
     this->status = status;
 }
-/*
-Agendamento::Agendamento(int id, string dataAgendada, string HoraAgendada, Usuario* doador, Usuario* receptor, PontoColeta* local, Status status)
-{
-    this->id = id;
-    this->data_agendado = dataAgendada;
-    this->horario_agendado = HoraAgendada;
-    this->doador = doador;
-    this->receptor = receptor;
-    this->local = local;
-    this->status = status;
-}*/
+
 
 ostream &operator<<(ostream &out, const Agendamento &obj)
 {
@@ -176,7 +178,7 @@ void Agendamento::set_status(Status status){
 
 bool Agendamento::add_residuo(Residuo *residuo, double quantidade){
     if(residuo!=nullptr && quantidade>0){
-        this->itens_agendamento->push_back(new AgendamentoItens(residuo,quantidade));
+        this->itens_agendamento->push_back(new AgendamentoItens(this->id,residuo,quantidade));
         return true;
     }
     else{
@@ -185,7 +187,7 @@ bool Agendamento::add_residuo(Residuo *residuo, double quantidade){
 }
 bool Agendamento::remove_residuo(Residuo *residuo){
     bool removed = false;
-    for(auto it = itens_agendamento;it!= itens_agendamento.end();++it){
+    for(auto it = itens_agendamento->begin();it!= itens_agendamento->end();++it){
         if(residuo->get_id() == (*it)->get_residuo()->get_id()){
             itens_agendamento->remove(*it);
             removed = true;
@@ -198,4 +200,25 @@ bool Agendamento::set_itens(list<AgendamentoItens*>* itens){
     if(itens!=nullptr)
         this->itens_agendamento= itens;
     return itens!=nullptr;
+}
+
+int Agendamento::get_id_doador() const{
+    if(doador!=nullptr)
+        return doador->get_id();
+    else   
+        return 0;
+}
+int Agendamento::get_id_receptor() const
+{
+    if(receptor!=nullptr)
+        return receptor->get_id();
+    else    
+        return 0;
+}
+int Agendamento::get_id_local() const
+{
+    if(local!=nullptr)
+        return local->get_id();
+    else 
+        return 0;
 }

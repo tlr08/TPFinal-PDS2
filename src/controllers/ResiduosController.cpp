@@ -148,8 +148,3 @@ void ResiduosController::list_all()
     }
     waitKey();
 }
-
-int ResiduosController::get_next_id()
-{
-   return 0;
-}

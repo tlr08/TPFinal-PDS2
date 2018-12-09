@@ -252,6 +252,19 @@ void AgendamentoController::residuos(){
     }
 }*/
 
-int AgendamentoController::get_next_id(){
-   return 0;   
+void AgendamentoController::show()
+{
+    int id = -1;
+    cout << "Informe o Id do Agendamento: ";
+    cin >> id;
+    Agendamento *res = dao->find(id);
+    if (res != nullptr)
+    {
+       cout << *res;
+    }
+    else
+    {
+        cout << "Agendamento não encontrado." << endl;
+    }
+    waitKey();
 }

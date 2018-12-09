@@ -20,7 +20,6 @@ class PontoColetaController : public DefaultController<PontoColeta>{
         void update();
         void remove();
         void show(); 
-        int get_next_id();
 };
 
 #endif

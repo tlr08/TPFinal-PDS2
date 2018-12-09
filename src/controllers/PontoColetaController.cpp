@@ -215,7 +215,3 @@ void PontoColetaController::list_all()
     waitKey();
 }
 
-int PontoColetaController::get_next_id()
-{
-    return 0;
-}

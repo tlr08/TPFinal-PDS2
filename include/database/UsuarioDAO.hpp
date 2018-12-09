@@ -13,7 +13,7 @@ class UsuarioDAO : public IModelDAO<Usuario>{
         Usuario* getPessoa(Row* row);
     public:
         UsuarioDAO(DbHelper* helper);
-        ~UsuarioDAO();
+        virtual ~UsuarioDAO();
         bool create(Usuario* obj);
         bool update(Usuario* obj);
         std::list<Usuario*>* list_all();

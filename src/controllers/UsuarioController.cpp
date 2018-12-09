@@ -201,9 +201,3 @@ void UsuarioController::list_all()
     }
     waitKey();
 }
-
-//REMOVER METODO
-int UsuarioController::get_next_id()
-{
-    return 0;
-}

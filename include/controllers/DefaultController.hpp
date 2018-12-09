@@ -16,7 +16,6 @@ class DefaultController {
         virtual void list_all() = 0;
         virtual void remove() = 0;
         virtual void show() = 0;
-        virtual int get_next_id() = 0;
 };
 
 #endif

@@ -11,7 +11,7 @@ class PontoColetaDAO : public IModelDAO<PontoColeta>{
         PontoColeta* getPontoColeta(Row* row);
     public:
         PontoColetaDAO(DbHelper* helper);
-        ~PontoColetaDAO();
+        virtual ~PontoColetaDAO();
         bool create(PontoColeta* obj);
         bool update(PontoColeta* obj);
         std::list<PontoColeta*>* list_all();

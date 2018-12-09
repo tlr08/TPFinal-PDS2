@@ -3,16 +3,20 @@
 #include "stdafx.hpp"
 #include "DbHelper.hpp"
 #include "IModelDAO.hpp"
-#include "Residuo.hpp"
-#include "AgendamentoItens.hpp"
 #include "Agendamento.hpp"
-
+#include "AgendamentoItens.hpp"
+#include "AgendamentoItensDAO.hpp"
+#include "PontoColetaDAO.hpp"
+#include "UsuarioDAO.hpp"
 class AgendamentoDAO : public IModelDAO<Agendamento>{
     private:
-        Agendamento* getPontoColeta(Row* row);
+        AgendamentoItensDAO* itensDAO;
+        UsuarioDAO* usuarioDAO; 
+        PontoColetaDAO* coletaDAO;
+        Agendamento* getAgendamento(Row* row);
     public:
         AgendamentoDAO(DbHelper* helper);
-        ~AgendamentoDAO();
+        virtual ~AgendamentoDAO();
         bool create(Agendamento* obj);
         bool update(Agendamento* obj);
         std::list<Agendamento*>* list_all();

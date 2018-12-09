@@ -11,7 +11,7 @@ class ResiduosDAO : public IModelDAO<Residuo>{
         Residuo* getResiduo(Row* row);
     public:
         ResiduosDAO(DbHelper* helper);
-        ~ResiduosDAO();
+        virtual ~ResiduosDAO();
         bool create(Residuo* obj);
         bool update(Residuo* obj);
         std::list<Residuo*>* list_all();

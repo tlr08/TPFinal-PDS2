@@ -14,7 +14,7 @@ class Usuario  {
         string endereco;
         
     public:
-        ~Usuario() {
+        virtual ~Usuario() {
             this->endereco.clear();
             this->nome.clear();
             this->nome_usuario.clear();

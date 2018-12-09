@@ -14,8 +14,8 @@ enum Status{
 };
 
 string status_to_string(Status status);
-Status int_to_status(int);
-
+Status int_to_status(int value);
+int status_to_int (Status value);
 
 class Agendamento
 {
@@ -34,6 +34,10 @@ class Agendamento
         Usuario* get_receptor() const;
         PontoColeta* get_local() const;
         Status get_status() const;
+
+        int get_id_doador() const;
+        int get_id_receptor() const;
+        int get_id_local() const;
 
         bool set_id(int id);
         bool set_doador(Usuario* doador);
@@ -64,3 +68,4 @@ class Agendamento
 };
 
 #endif // AGENDAMENTO_H
+
