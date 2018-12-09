@@ -1,9 +1,23 @@
 #include "AgendamentoController.hpp"
 
 AgendamentoController::AgendamentoController(DbHelper* helper){
-    this->helper = helper;
+    this->dao = new AgendamentoDAO(helper);
+    this->usuarioDAO = new UsuarioDAO(helper);
+    this->localDAO = new PontoColetaDAO(helper);
+    this->residuosDAO = new ResiduosDAO(helper);
 }
+AgendamentoController::~AgendamentoController()
+{
+    delete this->dao;
+    delete this->usuarioDAO;
+    delete this->localDAO;
+    delete this->residuosDAO;
+    this->dao = nullptr;
+    this->usuarioDAO = nullptr;
+    this->localDAO = nullptr;
+    this->residuosDAO = nullptr;
 
+}
 void AgendamentoController::run(){
     bool continueRunning = true;
     do {
@@ -26,9 +40,6 @@ void AgendamentoController::run(){
             case 5:
                 this->show();
                 break;
-            case 6:
-                this->residuos();
-                break;
         }
 
     } while(continueRunning);
@@ -37,7 +48,7 @@ void AgendamentoController::run(){
 
 int AgendamentoController::get_view(){
     int returnValue = -1;
-    while(returnValue < 0 || returnValue > 6){
+    while(returnValue < 0 || returnValue > 5){
         clearScreen();
         cout << "Gerenciamento dos Agendamentos" << endl;
         cout << "1 - Agendar" << endl;
@@ -45,7 +56,6 @@ int AgendamentoController::get_view(){
         cout << "3 - Listar Agendamentos" << endl;
         cout << "4 - Cancelar Agendamento" << endl;
         cout << "5 - Detalhar Agendamentos" << endl;
-        cout << "6 - Adicionar/Remover resíduos do Agendamento" << endl;
         cout << "0 - Sair" << endl;
         cout << endl << "Selecione uma opção: ";
         cin >> returnValue;
@@ -55,52 +65,132 @@ int AgendamentoController::get_view(){
 
 void AgendamentoController::create(){
     Agendamento* agendamento = new Agendamento();
-    agendamento->set_id(this->get_next_id());
-    try {
-        cin >> *agendamento;
-        this->data_set->push_back(agendamento);
-    }catch(exception e) {
-        cout << e.what() << endl;
+    Usuario *doador = nullptr;
+    int idDoador = 0;
+    Usuario *receptor = nullptr;
+    int idReceptor = 0;
+    PontoColeta* local = nullptr;
+    int idLocal = 0;
+    clearScreen();
+    cout << "\t Cadastro do Agendamento da Coleta" << endl
+        << endl;
+
+    cin >> *agendamento;
+    cout << "Informe o ID do Doador: " << endl;
+    cin >> idDoador;
+    doador = usuarioDAO->find(idDoador);
+    if (doador != nullptr)
+    {
+        agendamento->set_doador(doador);
+    } 
+    else
+    {
+        cout << "ID não encontrado, doador não será vinculado." << endl;
     }
+
+    cout << "Informe o ID do Receptor: " << endl;
+    cin >> idReceptor;
+    receptor = usuarioDAO->find(idReceptor);
+    if (receptor != nullptr)
+    {
+        agendamento->set_recepetor(receptor);
+    } 
+    else
+    {
+        cout << "ID não encontrado, receptor não será vinculado." << endl;
+    }
+
+    cout << "Informe o ID do Ponto de Coleta: " << endl;
+    cin >> idLocal;
+    local = localDAO->find(idLocal);
+    if (local != nullptr)
+    {
+        agendamento->set_local(local);
+    } 
+    else
+    {
+        cout << "ID não encontrado, local não será vinculado." << endl;
+    }
+
+    if(dao->create(agendamento))
+    {
+        cout << "Agendamento cadastrado com sucesso!" << endl;
+    } else {
+        cout << "Falha ao cadastrar agendamento.";
+    }
+    if( doador != nullptr)
+        delete doador;
+    if( receptor != nullptr)
+        delete receptor;
+    if( local != nullptr)
+        delete local;
+    delete agendamento;
     agendamento =  nullptr;
 }
 
 void AgendamentoController::update(){
     Agendamento *update = nullptr;
     int id = 0;
-    cout << "Informe o ID do Agendamento a ser alterado: ";
-    cin >> id;
+    Usuario *doador = nullptr;
+    int idDoador = 0;
+    Usuario *receptor = nullptr;
+    int idReceptor = 0;
+    PontoColeta* local = nullptr;
+    int idLocal = 0;
 
-    for(Agendamento* agendamento: *this->data_set){
-        if(agendamento->get_id() == id)
-            update = agendamento;
-    }
-    if(update != nullptr){
-         Agendamento* novo_Agendamento = dynamic_cast<Agendamento*>(update);
-         cin >> *novo_Agendamento;
-         cout << "Agendamento alterado com sucesso.";
-    }
-    else {
-        cout << "Falha ao alterar Agendamento.";
-    }
-
-    waitKey();
-
-}
-
-void AgendamentoController::show(){
-    int id = -1;
-    cout << "Informe o Id do Agendamento: ";
-    cin >> id;
-    for(Agendamento* x : *this->data_set){
-        if(x->get_id() == id){
-            clearScreen();
-            cout << *x;
-            waitKey();
-            return;
+    update = dao->find(id);
+    if (update != nullptr){
+        cout << "\t Dados do Local" << endl
+             << *update << endl
+             << "\t Atualização" << endl;
+        cin >> *update;
+        cout << "Informe o ID do Doador: " << endl;
+        cin >> idDoador;
+        doador = usuarioDAO->find(idDoador);
+        if (doador != nullptr)
+        {
+            update->set_doador(doador);
+        } 
+        else
+        {
+            cout << "ID não encontrado, doador não será vinculado." << endl;
         }
+
+        cout << "Informe o ID do Receptor: " << endl;
+        cin >> idReceptor;
+        receptor = usuarioDAO->find(idReceptor);
+        if (receptor != nullptr)
+        {
+            update->set_recepetor(receptor);
+        } 
+        else
+        {
+            cout << "ID não encontrado, receptor não será vinculado." << endl;
+        }
+
+        cout << "Informe o ID do Ponto de Coleta: " << endl;
+        cin >> idLocal;
+        local = localDAO->find(idLocal);
+        if (local != nullptr)
+        {
+            update->set_local(local);
+        } 
+        else
+        {
+            cout << "ID não encontrado, local não será vinculado." << endl;
+        }
+
+        if(dao->update(update))
+        {
+            cout << "Agendamento alterado com sucesso!" << endl;
+        } else {
+            cout << "Falha ao alterar agendamento.";
+        }
+
     }
-    cout << "Agendamento não encontrado." << endl;
+    else{
+        cout << "Agendamento não encontrado." << endl;
+    }
     waitKey();
 }
 
@@ -111,11 +201,13 @@ void AgendamentoController::remove() {
 
 void AgendamentoController::list_all(){
     clearScreen();
-    for(Agendamento* agendamento : *this->data_set){
+    cout << "\t Agendamentos" << endl;
+    for(Agendamento* agendamento : *dao->list_all()){
         cout << *agendamento;
     }
     waitKey(); 
 }
+/*
 void AgendamentoController::residuos(){
     int id = 0;
     int adicionador = 0;
@@ -147,14 +239,8 @@ void AgendamentoController::residuos(){
     waitKey();
 
     }
-}
+}*/
 
 int AgendamentoController::get_next_id(){
-    int returnValue = 0;
-    list<Agendamento*>* data = this->data_set;
-    if(!data->empty()){
-        returnValue =  (*(--data->end()))->get_id();
-    }
-
-    return ++returnValue;    
+   return 0;   
 }

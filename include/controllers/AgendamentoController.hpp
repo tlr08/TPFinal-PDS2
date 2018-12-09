@@ -3,6 +3,10 @@
 #include "stdafx.hpp"
 #include "DefaultController.hpp"
 #include "Agendamento.hpp"
+#include "AgendamentoDAO.hpp"
+#include "UsuarioDAO.hpp"
+#include "ResiduosDAO.hpp"
+#include "PontoColetaDAO.hpp"
 
 using namespace std;
 class AgendamentoController : public DefaultController<Agendamento>{
@@ -10,8 +14,10 @@ class AgendamentoController : public DefaultController<Agendamento>{
         void run();
         AgendamentoController(DbHelper* helper);
     private:
-        list<Agendamento*>* data_set;    
-        DbHelper* helper;
+        AgendamentoDAO* dao;   
+        UsuarioDAO* usuarioDAO;
+        PontoColetaDAO* localDAO;
+        ResiduosDAO* residuosDAO;
         int get_view();
         void create();
         void list_all();

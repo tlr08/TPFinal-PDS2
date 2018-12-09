@@ -57,7 +57,7 @@ class Agendamento
     private:
         int id;
         string data_agendado, horario_agendado;
-        Usuario* doador, receptor;
+        Usuario* doador, *receptor;
         PontoColeta* local;
         Status status; 
         list<AgendamentoItens*>* itens_agendamento;

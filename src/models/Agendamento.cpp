@@ -44,7 +44,7 @@ Agendamento::Agendamento(int id, string dataAgendada,
                     Usuario* receptor,PontoColeta* local,
                     Status status)
 {
-    this->itens_agendamento= new list<Agendamento*>();
+    this->itens_agendamento= new list<AgendamentoItens *>();
     this->id = id;
     this->data_agendado = dataAgendada;
     this->horario_agendado = HoraAgendada;
@@ -53,20 +53,27 @@ Agendamento::Agendamento(int id, string dataAgendada,
     this->local = local;
     this->status = status;
 }
-Agendamento::Agendamento(int id, string dataAgendada, string HoraAgendada, int id_doador, int id_receptor, int id_residuo, int id_PontoColeta)
+/*
+Agendamento::Agendamento(int id, string dataAgendada, string HoraAgendada, Usuario* doador, Usuario* receptor, PontoColeta* local, Status status)
 {
     this->id = id;
     this->data_agendado = dataAgendada;
     this->horario_agendado = HoraAgendada;
-    this_
-}
+    this->doador = doador;
+    this->receptor = receptor;
+    this->local = local;
+    this->status = status;
+}*/
 
 ostream &operator<<(ostream &out, const Agendamento &obj)
 {
     out << "ID: " << obj.get_id() << endl;
-    out << "Data: " << obj.get_dataAgendada() << endl;
-    out << "Hora: " << obj.get_HoraAgendada() << endl;
-    out << "Status Coleta: " << status_to_string(obj.coleta_realizada()) << endl;
+    out << "Data: " << obj.get_data_agendada() << endl;
+    out << "Hora: " << obj.get_hora_agendada() << endl;
+    out << "Doador: " <<(obj.get_doador())->get_nome_usuario() << endl;
+    out << "Receptor: " << (obj.get_receptor())->get_nome_usuario()<< endl;
+    out << "Local: " << (obj.get_local())->get_nome()<< endl;
+    out << "Status Coleta: " << status_to_string(obj.get_status()) << endl;
     out << endl;
     return out;
 }
@@ -74,12 +81,7 @@ istream &operator>>(istream &in, Agendamento &obj)
 {
     string dataAgendada = "";
     string HoraAgendada = "";
-    int idDoador = 0;
-    int idReceptor = 0;
-    int idResiduos = 0;
-    int idPontoColeta = 0;
-    int realizado = 0;
-
+    int statusID = -1 ;
     clearBuffer(in);
 
     cout << "Informe a data para agendamento(DD/MM/AAAA): ";
@@ -88,28 +90,11 @@ istream &operator>>(istream &in, Agendamento &obj)
     cout << "Informe o horário para agendamento(HH:MM): ";
     getline(in, HoraAgendada, '\n');
 
-    cout << "Informe o ID do Doador: ";
-    in >> idDoador;
-
-    cout << "Informe o ID do Receptor: ";
-    in >> idReceptor;
-
-    cout << "Informe o ID do Residuo: ";
-    in >> idResiduos;
-    obj.set_id_Residuos(idResiduos);
-
-    cout << "Informe o ID do Ponto de Coleta: ";
-    in >> idPontoColeta;
-
     cout << "Informe o Status da Coleta (0 - Não Realizado | 1 - Realizado): ";
-    in >> realizado;
-
-    obj.set_id_Ponto_coleta(idPontoColeta);
-    obj.set_dataAgendada(dataAgendada);
-    obj.set_HoraAgendada(HoraAgendada);
-    obj.set_id_Doador(idDoador);
-    obj.set_id_Receptor(idReceptor);
-    obj.set_coleta(int_to_status(realizado));
+    cin >> statusID;
+    obj.set_data_agendada(dataAgendada);
+    obj.set_hora_agendada(HoraAgendada);
+    obj.set_status(int_to_status(statusID));
 
     return in;
 }
@@ -199,7 +184,7 @@ bool Agendamento::add_residuo(Residuo *residuo, double quantidade){
     }
 }
 bool Agendamento::remove_residuo(Residuo *residuo){
-    bool removed = false
+    bool removed = false;
     for(auto it = itens_agendamento;it!= itens_agendamento.end();++it){
         if(residuo->get_id() == (*it)->get_residuo()->get_id()){
             itens_agendamento->remove(*it);
