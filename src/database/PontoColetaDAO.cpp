@@ -5,7 +5,8 @@ PontoColetaDAO::PontoColetaDAO(DbHelper *helper)
     this->helper = helper;
     this->usuarioDAO = new UsuarioDAO(helper);
 }
-PontoColetaDAO::~PontoColetaDAO(){
+PontoColetaDAO::~PontoColetaDAO()
+{
     delete this->usuarioDAO;
     this->usuarioDAO = nullptr;
 }
@@ -19,11 +20,10 @@ bool PontoColetaDAO::create(PontoColeta *obj)
     params->push_back(getVariant(obj->get_endereco()));
     params->push_back(getVariant(obj->get_user_id()));
 
-
     sqlite3_stmt *stmt;
     int rc = helper->prepareStatementSQL(sql, params, &stmt);
     rc = sqlite3_step(stmt);
-    if(rc!=SQLITE_DONE)
+    if (rc != SQLITE_DONE)
         cout << sqlite3_errmsg(helper->getDatabase()) << endl;
     params->clear();
     delete params;
@@ -32,12 +32,11 @@ bool PontoColetaDAO::create(PontoColeta *obj)
 bool PontoColetaDAO::update(PontoColeta *obj)
 {
     const char *sql = "UPDATE PONTOCOLETA SET NOME = ?, ENDERECO = ?, ID_USUARIO = ? WHERE ID = ?;";
-    
-    list<variant *> *params = new list<variant*>();
+
+    list<variant *> *params = new list<variant *>();
     params->push_back(getVariant(obj->get_nome()));
     params->push_back(getVariant(obj->get_endereco()));
     params->push_back(getVariant(obj->get_user_id()));
-
 
     params->push_back(getVariant(obj->get_id()));
 
@@ -55,21 +54,19 @@ bool PontoColetaDAO::update(PontoColeta *obj)
 }
 std::list<PontoColeta *> *PontoColetaDAO::list_all()
 {
-    PontoColeta* pontoColeta = nullptr;
+    PontoColeta *pontoColeta = nullptr;
     const char *sql = "select * from PONTOCOLETA";
-    list<PontoColeta*> * listPontoColeta = new list<PontoColeta*>();
+    list<PontoColeta *> *listPontoColeta = new list<PontoColeta *>();
 
     std::list<Row *> *rows = nullptr;
     list<variant *> *params = new list<variant *>();
 
     rows = helper->read(sql, params);
-    
-    list<Row *>::iterator it;
-    
-    for (it = rows->begin(); it != rows->end(); ++it)
+
+    for (auto it = rows->begin(); it != rows->end(); ++it)
     {
         pontoColeta = getPontoColeta(*it);
-        if(pontoColeta!=nullptr)
+        if (pontoColeta != nullptr)
             listPontoColeta->push_back(pontoColeta);
     }
     pontoColeta = nullptr;
@@ -78,20 +75,17 @@ std::list<PontoColeta *> *PontoColetaDAO::list_all()
 PontoColeta *PontoColetaDAO::find(int id)
 {
     const char *sql = "select * from PONTOCOLETA  where ID = ? limit 1";
-    
+
     PontoColeta *pontoColeta = nullptr;
     std::list<Row *> *rows = nullptr;
 
     list<variant *> *params = new list<variant *>();
     params->push_back(getVariant(id));
     rows = helper->read(sql, params);
-    list<Row *>::iterator it;
-    list<Field *>::iterator itF;
-    for (it = rows->begin(); it != rows->end(); ++it)
+    for (auto it = rows->begin(); it != rows->end(); ++it)
     {
         pontoColeta = getPontoColeta(*it);
     }
-
 
     return pontoColeta;
 }
@@ -103,43 +97,21 @@ bool PontoColetaDAO::remove(int id)
     sqlite3_bind_int(stmt, 1, id);
     int rc = sqlite3_step(stmt);
 
-    return  rc == SQLITE_DONE;
+    return rc == SQLITE_DONE;
 }
 bool PontoColetaDAO::remove(PontoColeta *obj)
 {
     return this->remove(obj->get_id());
 }
 
-PontoColeta* PontoColetaDAO::getPontoColeta(Row* row)
+PontoColeta *PontoColetaDAO::getPontoColeta(Row *row)
 {
-
-
-    PontoColeta* pontoColeta = new PontoColeta();
-    list<Field *>::iterator itF;
-    for (itF = row->fields->begin(); itF != row->fields->end(); ++itF)
-    {
-        Field *field = *itF;
-        string fieldName = field->name;
-        
-        if (fieldName.compare("ID") == 0)
-        {
-            pontoColeta->set_id(getInt(field->data));
-        }
-        else if (fieldName.compare("NOME") == 0)
-        {
-            pontoColeta->set_nome(getString(field->data));
-        }
-        else if (fieldName.compare("ENDERECO") == 0)
-        {
-            pontoColeta->set_endereco(getString(field->data));
-        }
-        else if (fieldName.compare("ID_USUARIO") == 0)
-        {
-            Usuario* usuario = usuarioDAO->find(getInt(field->data));
-            pontoColeta->set_Usuario(usuario);
-            usuario = nullptr;
-        }
-
-    }
+    PontoColeta *pontoColeta = new PontoColeta();
+    pontoColeta->set_id(getInt(row->getValue("ID")));
+    pontoColeta->set_nome(getString(row->getValue("NOME")));
+    pontoColeta->set_endereco(getString(row->getValue("ENDERECO")));
+    Usuario *usuario = usuarioDAO->find(getInt(row->getValue("ID_USUARIO")));
+    pontoColeta->set_Usuario(usuario);
+    usuario = nullptr;
     return pontoColeta;
 }

@@ -2,21 +2,9 @@
 #define DBHELPER_H
 #include "stdafx.hpp"
 #include "sqlite3.h"
+#include "Row.hpp"
+
 //Classe para auxilar no gerenciamento do Banco de Dados 
-//Implementar métodos de exclusão, atualização e inserção.
-//Criar métodos para carregar o banco.
-
-typedef struct struct_field {
-    variant* data;
-    std::string name;
-} Field;
-
-typedef struct struct_row {
-    std::list<Field*>* fields;
-} Row;
-
-Field* getField(variant* data, std::string name);
-
 class DbHelper {
     private:
         sqlite3* dbFile;

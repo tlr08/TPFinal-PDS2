@@ -135,7 +135,7 @@ ostream& operator<<(ostream& out, const Residuo& obj){
     out << "Resíduo: " << obj.get_nome_residuo() << endl;
     out << "Forma de Armazenamento: " << obj.get_forma_armazenamento() << endl;
     out << "Tipo de Resíduo: " << tipo_to_string(obj.get_tipo_residuo())  << endl;
-    out << "Quantidade: " << obj.get_Quantidade() << obj.get_Unidade() << endl;
+    out << "Quantidade: " << obj.get_Quantidade() << " " << obj.get_Unidade() << endl;
     out << endl;
     return out;
 }

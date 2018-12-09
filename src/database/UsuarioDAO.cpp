@@ -1,10 +1,12 @@
+
 #include "UsuarioDAO.hpp"
 
 UsuarioDAO::UsuarioDAO(DbHelper *helper)
 {
     this->helper = helper;
 }
-UsuarioDAO::~UsuarioDAO(){    
+UsuarioDAO::~UsuarioDAO()
+{
 }
 
 bool UsuarioDAO::create(Usuario *obj)
@@ -75,21 +77,17 @@ bool UsuarioDAO::update(Usuario *obj)
 }
 std::list<Usuario *> *UsuarioDAO::list_all()
 {
-    Usuario* usuario;
+    Usuario *usuario;
     const char *sql = "select (u.cpf = '')+1 as TIPO ,u.* from usuario u";
-    list<Usuario*> * listUsuario = new list<Usuario*>();
-
-    std::list<Row *> *rows = nullptr;
+    list<Usuario *> *listUsuario = new list<Usuario *>();
     list<variant *> *params = new list<variant *>();
-
+    std::list<Row *> *rows = nullptr;
     rows = helper->read(sql, params);
-    
-    list<Row *>::iterator it;
-    
-    for (it = rows->begin(); it != rows->end(); ++it)
+
+    for (auto it = rows->begin(); it != rows->end(); ++it)
     {
         usuario = getPessoa(*it);
-        if(usuario!=nullptr)
+        if (usuario != nullptr)
             listUsuario->push_back(usuario);
     }
 
@@ -98,16 +96,14 @@ std::list<Usuario *> *UsuarioDAO::list_all()
 Usuario *UsuarioDAO::find(int id)
 {
     const char *sql = "select (u.cpf = '')+1 as TIPO ,u.* from usuario u  where u.id = ? limit 1";
-    
+
     Usuario *usuario = nullptr;
     std::list<Row *> *rows = nullptr;
 
     list<variant *> *params = new list<variant *>();
     params->push_back(getVariant(id));
     rows = helper->read(sql, params);
-    list<Row *>::iterator it;
-    list<Field *>::iterator itF;
-    for (it = rows->begin(); it != rows->end(); ++it)
+    for (auto it = rows->begin(); it != rows->end(); ++it)
     {
         usuario = getPessoa(*it);
     }
@@ -127,60 +123,27 @@ bool UsuarioDAO::remove(Usuario *obj)
     return this->remove(obj->get_id());
 }
 
-Usuario *UsuarioDAO::getPessoa(Row* row)
+Usuario *UsuarioDAO::getPessoa(Row *row)
 {
-    Usuario* usuario;
-    list<Field *>::iterator itF;
-    for (itF = row->fields->begin(); itF != row->fields->end(); ++itF)
+    Usuario *usuario = nullptr;
+    if (getInt(row->getValue("TIPO")) == 0)
+        usuario = new PessoaFisica();
+    else
+        usuario = new PessoaJuridica();
+
+    usuario->set_id(getInt(row->getValue("ID")));
+    usuario->set_nome(getString(row->getValue("NOME")));
+    usuario->set_nome_usuario(getString(row->getValue("NOME_USUARIO")));
+    usuario->set_endereco(getString(row->getValue("ENDERECO")));
+    usuario->set_senha(getString(row->getValue("SENHA")));
+
+    if (PessoaFisica *pf = dynamic_cast<PessoaFisica *>(usuario))
     {
-        Field *field = *itF;
-        string fieldName = field->name;
-        if (fieldName.compare("TIPO") == 0)
-        {
-            switch (getInt(field->data))
-            {
-            case 1:
-                usuario = new PessoaFisica();
-                break;
-            case 2:
-                usuario = new PessoaJuridica();
-                break;
-            }
-        }
-        else if (fieldName.compare("ID") == 0)
-        {
-            usuario->set_id(getInt(field->data));
-        }
-        else if (fieldName.compare("NOME") == 0)
-        {
-            usuario->set_nome(getString(field->data));
-        }
-        else if (fieldName.compare("NOME_USUARIO") == 0)
-        {
-            usuario->set_nome_usuario(getString(field->data));
-        }
-        else if (fieldName.compare("ENDERECO") == 0)
-        {
-            usuario->set_endereco(getString(field->data));
-        }
-        else if (fieldName.compare("SENHA") == 0)
-        {
-            usuario->set_senha(getString(field->data));
-        }
-        else if (fieldName.compare("CPF") == 0)
-        {
-            if (PessoaFisica *pf = dynamic_cast<PessoaFisica *>(usuario))
-            {
-                pf->set_cpf(getString(field->data));
-            }
-        }
-        else if (fieldName.compare("CNPJ") == 0)
-        {
-            if (PessoaJuridica *pj = dynamic_cast<PessoaJuridica *>(usuario))
-            {
-                pj->set_cnpj(getString(field->data));
-            }
-        }
+        pf->set_cpf(getString(row->getValue("CPF")));
+    }
+    if (PessoaJuridica *pj = dynamic_cast<PessoaJuridica *>(usuario))
+    {
+        pj->set_cnpj(getString(row->getValue("CNPJ")));
     }
     return usuario;
 }

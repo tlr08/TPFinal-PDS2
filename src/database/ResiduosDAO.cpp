@@ -4,14 +4,13 @@ ResiduosDAO::ResiduosDAO(DbHelper *helper)
 {
     this->helper = helper;
 }
-ResiduosDAO::~ResiduosDAO(){
-    
+ResiduosDAO::~ResiduosDAO()
+{
 }
 
 bool ResiduosDAO::create(Residuo *obj)
 {
     list<variant *> *params = new list<variant *>();
-
 
     const char *sql = "INSERT INTO Residuo (NOME, FORMA, TIPO, QUANTIDADE, UNIDADE) VALUES (?,?,?,?,?);";
     params->push_back(getVariant(obj->get_nome_residuo()));
@@ -20,11 +19,10 @@ bool ResiduosDAO::create(Residuo *obj)
     params->push_back(getVariant(obj->get_Quantidade()));
     params->push_back(getVariant(obj->get_Unidade()));
 
-
     sqlite3_stmt *stmt;
     helper->prepareStatementSQL(sql, params, &stmt);
     int rc = sqlite3_step(stmt);
-    if(rc!=SQLITE_DONE)
+    if (rc != SQLITE_DONE)
         cout << sqlite3_errmsg(helper->getDatabase()) << endl;
     params->clear();
     delete params;
@@ -33,8 +31,8 @@ bool ResiduosDAO::create(Residuo *obj)
 bool ResiduosDAO::update(Residuo *obj)
 {
     const char *sql = "UPDATE  Residuo SET NOME = ?, FORMA = ?, TIPO = ?, QUANTIDADE = ?, UNIDADE = ? WHERE ID = ?;";
-    
-    list<variant *> *params = new list<variant*>();
+
+    list<variant *> *params = new list<variant *>();
 
     params->push_back(getVariant(obj->get_nome_residuo()));
     params->push_back(getVariant(obj->get_forma_armazenamento()));
@@ -58,21 +56,20 @@ bool ResiduosDAO::update(Residuo *obj)
 }
 std::list<Residuo *> *ResiduosDAO::list_all()
 {
-    Residuo* residuo;
-    const char *sql = "select * from RESIDUO";
-    list<Residuo*> * listResiduo = new list<Residuo*>();
-
+    Residuo *residuo = nullptr;
     std::list<Row *> *rows = nullptr;
+
+    const char *sql = "select * from RESIDUO";
+    list<Residuo *> *listResiduo = new list<Residuo *>();
+
     list<variant *> *params = new list<variant *>();
 
     rows = helper->read(sql, params);
-    
-    list<Row *>::iterator it;
-    
-    for (it = rows->begin(); it != rows->end(); ++it)
+
+    for (auto it = rows->begin(); it != rows->end(); ++it)
     {
         residuo = getResiduo(*it);
-        if(residuo!=nullptr)
+        if (residuo != nullptr)
             listResiduo->push_back(residuo);
     }
 
@@ -81,20 +78,17 @@ std::list<Residuo *> *ResiduosDAO::list_all()
 Residuo *ResiduosDAO::find(int id)
 {
     const char *sql = "select * from RESIDUO  where ID = ? limit 1";
-    
+
     Residuo *residuo = nullptr;
     std::list<Row *> *rows = nullptr;
 
     list<variant *> *params = new list<variant *>();
     params->push_back(getVariant(id));
     rows = helper->read(sql, params);
-    list<Row *>::iterator it;
-    list<Field *>::iterator itF;
-    for (it = rows->begin(); it != rows->end(); ++it)
+    for (auto it = rows->begin(); it != rows->end(); ++it)
     {
         residuo = getResiduo(*it);
     }
-
 
     return residuo;
 }
@@ -106,47 +100,21 @@ bool ResiduosDAO::remove(int id)
     sqlite3_bind_int(stmt, 1, id);
     int rc = sqlite3_step(stmt);
 
-    return  rc == SQLITE_DONE;
+    return rc == SQLITE_DONE;
 }
 bool ResiduosDAO::remove(Residuo *obj)
 {
     return this->remove(obj->get_id());
 }
 
-Residuo* ResiduosDAO::getResiduo(Row* row)
+Residuo *ResiduosDAO::getResiduo(Row *row)
 {
-
-    Residuo* residuo = new Residuo();
-    list<Field *>::iterator itF;
-    for (itF = row->fields->begin(); itF != row->fields->end(); ++itF)
-    {
-        Field *field = *itF;
-        string fieldName = field->name;
-        
-        if (fieldName.compare("ID") == 0)
-        {
-            residuo->set_id(getInt(field->data));
-        }
-        else if (fieldName.compare("NOME") == 0)
-        {
-            residuo->set_nome_residuo(getString(field->data));
-        }
-        else if (fieldName.compare("FORMA") == 0)
-        {
-            residuo->set_forma_armazenamento(getString(field->data));
-        }
-        else if (fieldName.compare("TIPO") == 0)
-        {
-            residuo->set_tipo_residuo(int_to_tipo(getInt(field->data)));
-        }
-        else if (fieldName.compare("QUANTIDADE") == 0)
-        {
-            residuo->set_Quantidade(getDouble(field->data));
-        }
-        else if (fieldName.compare("UNIDADE") == 0)
-        {
-            residuo->set_Unidade(getString(field->data));
-        }
-    }
+    Residuo *residuo = new Residuo();
+    residuo->set_id(getInt(row->getValue("ID")));
+    residuo->set_nome_residuo(getString(row->getValue("NOME")));
+    residuo->set_forma_armazenamento(getString(row->getValue("FORMA")));
+    residuo->set_tipo_residuo(int_to_tipo(getInt(row->getValue("TIPO"))));
+    residuo->set_Quantidade(getDouble(row->getValue("QUANTIDADE")));
+    residuo->set_Unidade(getString(row->getValue("UNIDADE")));
     return residuo;
 }

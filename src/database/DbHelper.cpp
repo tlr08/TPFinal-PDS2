@@ -1,5 +1,4 @@
 #include "DbHelper.hpp"
-#include <list>
 
 DbHelper::~DbHelper(){
     this->closeConnection();
@@ -74,7 +73,6 @@ std::list<Row*>* DbHelper::read(const char* sql, std::list<variant*>* params){
     while (rc != SQLITE_DONE && rc != SQLITE_OK)
     {
         Row* row = new Row();
-        row->fields = new std::list<Field*>();
         int colCount = sqlite3_column_count(stmt);
         for (int colIndex = 0; colIndex < colCount; colIndex++)
         {
@@ -83,21 +81,21 @@ std::list<Row*>* DbHelper::read(const char* sql, std::list<variant*>* params){
             if (type == SQLITE_INTEGER)
             {
                 int valInt = sqlite3_column_int(stmt, colIndex);
-                row->fields->push_back(getField(getVariant(valInt), columnName));
+                row->insert({columnName, getVariant(valInt)});
             }
             else if (type == SQLITE_FLOAT)
             {
                 double valDouble = sqlite3_column_double(stmt, colIndex);
-                row->fields->push_back(getField(getVariant(valDouble), columnName));
+                row->insert({columnName, getVariant(valDouble)});
             }
             else if (type == SQLITE_TEXT)
             {
                 std::string valChar = std::string(reinterpret_cast<const char*>(sqlite3_column_text(stmt, colIndex)));
-                row->fields->push_back(getField(getVariant(valChar), columnName));
+                row->insert({columnName, getVariant(valChar)});
             }
             else if (type == SQLITE_NULL)
             {
-                row->fields->push_back(getField(getVariant(""), columnName));
+                row->insert({columnName, getVariant("")});
             }
         }
         rows->push_back(row);
@@ -131,9 +129,3 @@ int DbHelper::prepareStatementSQL(const char* sql, std::list<variant*>* params, 
 
 }
 
-Field* getField(variant* data, std::string name){
-    return new Field{
-        data,
-        name
-    };
-}
