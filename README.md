@@ -38,5 +38,17 @@ Trata-se de um sistema de gerenciamento de resíduos feito em C++
 
 > sudo dnf install sqlite sqlite-devel
 
+Compilar a main.
+> make
+
+Rodar a main.
+> make run
+
+Rodar os casos de Teste.
+> make tests
+
+Limpar o banco de dados.
+> ./bin/main RESET
+
 ### Observações
 * Feito com C++/11
