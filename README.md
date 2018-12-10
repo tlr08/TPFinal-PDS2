@@ -21,7 +21,7 @@ Trata-se de um sistema de gerenciamento de resíduos feito em C++
 - Lucas Silva Chaves
 - Lucas Gonçalves Bispo
 - Pedro Herculano Flores
-- Rayane Soares
+- Rayane Hellen Dias Soares
 
 ### Funcionalidade Extra
 ------------------------

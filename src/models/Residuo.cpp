@@ -169,6 +169,19 @@ istream& operator>>(istream& in, Residuo& obj){
 
     in >> tipo_residuo;
 
+    if(tipo_residuo == 0)
+    {
+        cout << "Guarda seu resíduo em locais fechados para evitar a Dengue!";
+    }
+    else if(tipo_residuo == 1)
+    {
+        cout << "Embale e proteja bem seu resíduo para evitar que se machuque!";
+    }
+    else if(tipo_residuo == 2)
+    {
+        cout << "Guarde em um local seco e arejado!";
+    }
+
 
     obj.set_forma_armazenamento(forma_armazenamento);
     obj.set_nome_residuo(nome_residuo);
