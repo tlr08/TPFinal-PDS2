@@ -1,29 +1,41 @@
 #include "helpers.hpp"
 
 double getDouble(variant* data){
-    if(data->variantType == t_double){
-        return data->data.double_value;
-    } else { 
+    if(data!=nullptr){
+        if(data->variantType == t_double){
+            return data->data.double_value;
+        } else { 
+            return -1;
+        }
+    }
+    else{
         return -1;
     }
-
 }
 
 int getInt(variant* data){
-    if(data->variantType == t_int){
-        return data->data.int_value;
-    } else { 
+    if(data!=nullptr){
+        if(data->variantType == t_int){
+            return data->data.int_value;
+        } else { 
+            return -1;
+        }
+    }else{
         return -1;
     }
 }
 
 std::string getString(variant* data){
-    if(data->variantType == t_string){
-        std::string toCopy =  data->data.string_value;
-        int strSize = toCopy.length();
-        std::string returnStr(toCopy, 0,strSize);
-        return returnStr;
-    } else {
+    if(data!=nullptr){
+        if(data->variantType == t_string){
+            std::string toCopy =  data->data.string_value;
+            int strSize = toCopy.length();
+            std::string returnStr(toCopy, 0,strSize);
+            return returnStr;
+        } else {
+            return "";
+        }
+    }else{
         return "";
     }
 }
