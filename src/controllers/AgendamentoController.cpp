@@ -102,6 +102,10 @@ void AgendamentoController::create()
     else
     {
         cout << "ID não encontrado, doador não será vinculado." << endl;
+        delete agendamento;
+        agendamento = nullptr;
+        waitKey();
+        return ;
     }
 
     cout << "Informe o ID do Receptor: ";
@@ -114,6 +118,10 @@ void AgendamentoController::create()
     else
     {
         cout << "ID não encontrado, receptor não será vinculado." << endl;
+        delete agendamento;
+        agendamento = nullptr;
+        waitKey();
+        return ;
     }
 
     cout << "Informe o ID do Ponto de Coleta: ";
@@ -126,6 +134,10 @@ void AgendamentoController::create()
     else
     {
         cout << "ID não encontrado, local não será vinculado." << endl;
+        delete agendamento;
+        agendamento = nullptr;
+        waitKey();
+        return ;
     }
 
     do
@@ -213,6 +225,10 @@ void AgendamentoController::update()
         else
         {
             cout << "ID não encontrado, doador não será vinculado." << endl;
+            delete update;
+            update = nullptr;
+            waitKey();
+            return ;
         }
 
         cout << "Informe o ID do Receptor: ";
@@ -225,6 +241,10 @@ void AgendamentoController::update()
         else
         {
             cout << "ID não encontrado, receptor não será vinculado." << endl;
+            delete update;
+            update = nullptr;
+            waitKey();
+            return ;
         }
 
         cout << "Informe o ID do Ponto de Coleta: ";
@@ -237,6 +257,10 @@ void AgendamentoController::update()
         else
         {
             cout << "ID não encontrado, local não será vinculado." << endl;
+            delete update;
+            update = nullptr;
+            waitKey();
+            return ;
         }
         
         if (dao->update(update))
