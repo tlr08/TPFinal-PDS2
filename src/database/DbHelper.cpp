@@ -54,6 +54,12 @@ void DbHelper::down(){
     this->runSql(sql);
     sql ="DROP TABLE IF EXISTS USUARIO;";
     this->runSql(sql);
+    sql ="DROP TABLE IF EXISTS PONTOCOLETA;";
+    this->runSql(sql);
+    sql ="DROP TABLE IF EXISTS AGENDAMENTO;";
+    this->runSql(sql);
+    sql ="DROP TABLE IF EXISTS AGENDAMENTO_ITENS;";
+    this->runSql(sql);
 }
 void DbHelper::up(){
     std::string sql = "CREATE TABLE IF NOT EXISTS RESIDUO ( ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, NOME TEXT NOT NULL, FORMA TEXT NOT NULL, TIPO INT NOT NULL, QUANTIDADE REAL NOT NULL, UNIDADE TEXT NOT NULL);";
