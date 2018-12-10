@@ -61,7 +61,8 @@ int UsuarioController::get_view()
 }
 
 void UsuarioController::create()
-{
+{   
+    clearScreen();
     Usuario *usuario = nullptr;
     int opcao = 0;
     cout << "Qual tipo de pessoa deseja cadastrar?" << endl;
@@ -98,6 +99,7 @@ void UsuarioController::create()
 
 void UsuarioController::update()
 {
+    clearScreen();
     Usuario *update = nullptr;
     int id = 0;
     bool result = false;

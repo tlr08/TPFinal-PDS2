@@ -15,7 +15,7 @@ bool AgendamentoItensDAO::create(AgendamentoItens*obj)
 {
     list<variant *> *params = new list<variant *>();
 
-    const char *sql = "INSERT INTO AGENDAMENTOITENS (ID_AGENDAMENTO, ID_RESIDUO, QUANTIDADE) VALUES (?,?,?);";
+    const char *sql = "INSERT INTO AGENDAMENTO_ITENS (ID_AGENDAMENTO, ID_RESIDUO, QUANTIDADE) VALUES (?,?,?);";
     params->push_back(getVariant(obj->get_id_agendamento()));
     params->push_back(getVariant(obj->get_id_residuo()));
     params->push_back(getVariant(obj->get_quantidade()));
@@ -31,7 +31,7 @@ bool AgendamentoItensDAO::create(AgendamentoItens*obj)
 }
 bool AgendamentoItensDAO::update(AgendamentoItens* obj)
 {
-    const char *sql = "INSERT INTO AGENDAMENTOITENS SET ID_AGENDAMENTO = ?, ID_RESIDUO = ?, QUANTIDADE = ? WHERE ID = ?;";
+    const char *sql = "UPDATE AGENDAMENTO_ITENS SET ID_AGENDAMENTO = ?, ID_RESIDUO = ?, QUANTIDADE = ? WHERE ID = ?;";
     list<variant *> *params = new list<variant *>();
     params->push_back(getVariant(obj->get_id_agendamento()));
     params->push_back(getVariant(obj->get_id_residuo()));
@@ -53,7 +53,7 @@ bool AgendamentoItensDAO::update(AgendamentoItens* obj)
 std::list<AgendamentoItens*>* AgendamentoItensDAO::list_by_id_agendamento(int id)
 {
     AgendamentoItens* itemAgendamento = nullptr;
-    const char *sql = "SELECT * from AGENDAMENTOITENS WHERE ID_AGENDAMENTO = ?";
+    const char *sql = "SELECT * from AGENDAMENTO_ITENS WHERE ID_AGENDAMENTO = ?";
     list<AgendamentoItens*> *listAgendamentoItens = new list<AgendamentoItens*>();
     std::list<Row *> *rows = nullptr;
 
@@ -75,7 +75,7 @@ std::list<AgendamentoItens*>* AgendamentoItensDAO::list_by_id_agendamento(int id
 std::list<AgendamentoItens*> *AgendamentoItensDAO::list_all()
 {
     AgendamentoItens* itemAgendamento = nullptr;
-    const char *sql = "SELECT * from AgendamentoItens";
+    const char *sql = "SELECT * from AGENDAMENTO_ITENS";
     list<AgendamentoItens*> *listAgendamentoItens = new list<AgendamentoItens*>();
 
     std::list<Row *> *rows = nullptr;
@@ -94,7 +94,7 @@ std::list<AgendamentoItens*> *AgendamentoItensDAO::list_all()
 }
 AgendamentoItens*AgendamentoItensDAO::find(int id)
 {
-    const char *sql = "SELECT * from AgendamentoItens where ID = ? limit 1";
+    const char *sql = "SELECT * from AGENDAMENTO_ITENS where ID = ? limit 1";
 
     AgendamentoItens* item = nullptr;
     std::list<Row *> *rows = nullptr;
@@ -112,7 +112,7 @@ AgendamentoItens*AgendamentoItensDAO::find(int id)
 bool AgendamentoItensDAO::remove(int id)
 {
     sqlite3_stmt *stmt;
-    const char *sql = "DELETE FROM AgendamentoItens WHERE ID_AGENDAMENTO = ?";
+    const char *sql = "DELETE FROM AGENDAMENTO_ITENS WHERE ID_AGENDAMENTO = ?";
     sqlite3_prepare_v2(helper->getDatabase(), sql, strlen(sql), &stmt, nullptr);
     sqlite3_bind_int(stmt, 1, id);
     int rc = sqlite3_step(stmt);

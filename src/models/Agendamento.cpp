@@ -76,6 +76,14 @@ ostream &operator<<(ostream &out, const Agendamento &obj)
     out << "Receptor: " << (obj.get_receptor())->get_nome_usuario()<< endl;
     out << "Local: " << (obj.get_local())->get_nome()<< endl;
     out << "Status Coleta: " << status_to_string(obj.get_status()) << endl;
+    out << endl << endl;
+    out << "\tItens da Coleta" << endl << endl;
+    list<AgendamentoItens*>* itens = obj.get_itens();
+    for(auto it = itens->begin(); it!=itens->end();++it)
+    {
+        AgendamentoItens* item = *it;
+        out << *(item);
+    }
     out << endl;
     return out;
 }

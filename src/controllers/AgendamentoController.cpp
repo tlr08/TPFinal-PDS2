@@ -92,7 +92,7 @@ void AgendamentoController::create()
          << endl;
 
     cin >> *agendamento;
-    cout << "Informe o ID do Doador: " << endl;
+    cout << "Informe o ID do Doador: ";
     cin >> idDoador;
     doador = usuarioDAO->find(idDoador);
     if (doador != nullptr)
@@ -104,7 +104,7 @@ void AgendamentoController::create()
         cout << "ID não encontrado, doador não será vinculado." << endl;
     }
 
-    cout << "Informe o ID do Receptor: " << endl;
+    cout << "Informe o ID do Receptor: ";
     cin >> idReceptor;
     receptor = usuarioDAO->find(idReceptor);
     if (receptor != nullptr)
@@ -116,7 +116,7 @@ void AgendamentoController::create()
         cout << "ID não encontrado, receptor não será vinculado." << endl;
     }
 
-    cout << "Informe o ID do Ponto de Coleta: " << endl;
+    cout << "Informe o ID do Ponto de Coleta: ";
     cin >> idLocal;
     local = localDAO->find(idLocal);
     if (local != nullptr)
@@ -146,6 +146,7 @@ void AgendamentoController::create()
             if (residuo != nullptr)
             {
                 cin >> *item;
+                item->set_residuo(residuo);
                 if (agendamento->add_item(item))
                 {
                     cout << "Item adicionado com sucesso" << endl;
@@ -202,7 +203,7 @@ void AgendamentoController::update()
              << *update << endl
              << "\t Atualização" << endl;
         cin >> *update;
-        cout << "Informe o ID do Doador: " << endl;
+        cout << "Informe o ID do Doador: ";
         cin >> idDoador;
         doador = usuarioDAO->find(idDoador);
         if (doador != nullptr)
@@ -214,7 +215,7 @@ void AgendamentoController::update()
             cout << "ID não encontrado, doador não será vinculado." << endl;
         }
 
-        cout << "Informe o ID do Receptor: " << endl;
+        cout << "Informe o ID do Receptor: ";
         cin >> idReceptor;
         receptor = usuarioDAO->find(idReceptor);
         if (receptor != nullptr)
@@ -226,7 +227,7 @@ void AgendamentoController::update()
             cout << "ID não encontrado, receptor não será vinculado." << endl;
         }
 
-        cout << "Informe o ID do Ponto de Coleta: " << endl;
+        cout << "Informe o ID do Ponto de Coleta: ";
         cin >> idLocal;
         local = localDAO->find(idLocal);
         if (local != nullptr)
@@ -274,10 +275,11 @@ void AgendamentoController::remove()
 void AgendamentoController::list_all()
 {
     clearScreen();
-    cout << "\t Agendamentos" << endl;
     for (Agendamento *agendamento : *dao->list_all())
     {
+        cout << "\tAgendamento" << endl;
         cout << *agendamento;
+        cout << endl;
     }
     waitKey();
 }
@@ -285,9 +287,11 @@ void AgendamentoController::list_all()
 void AgendamentoController::show()
 {
     int id = -1;
+    clearScreen();
     cout << "Informe o Id do Agendamento: ";
     cin >> id;
     Agendamento *res = dao->find(id);
+    clearScreen();
     if (res != nullptr)
     {
         cout << *res;
