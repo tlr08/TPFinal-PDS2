@@ -171,15 +171,15 @@ istream& operator>>(istream& in, Residuo& obj){
 
     if(tipo_residuo == 0)
     {
-        cout << "Guarda seu resíduo em locais fechados para evitar a Dengue!";
+        cout << "Guarda seu resíduo em locais fechados para evitar a Dengue!" << endl;
     }
     else if(tipo_residuo == 1)
     {
-        cout << "Embale e proteja bem seu resíduo para evitar que se machuque!";
+        cout << "Embale e proteja bem seu resíduo para evitar que se machuque!" << endl;
     }
     else if(tipo_residuo == 2)
     {
-        cout << "Guarde em um local seco e arejado!";
+        cout << "Guarde em um local seco e arejado!"<< endl;
     }
 
 
