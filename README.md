@@ -1,8 +1,10 @@
 # Gestão de Residuos 
 ----------------
 Trabalho Prático Final da Disciplina de PDS2 - UFMG - 2018/2
+
 Trata-se de um sistema de gerenciamento de resíduos feito em C++
-Documentação se encontra no repositório.
+
+Documentação se encontra no repositório
 
 ## TODO
 -------
